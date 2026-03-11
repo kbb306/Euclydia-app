@@ -22,7 +22,7 @@ enum class SpecialVoice {
     EU
 }
 class Shape (
-    val uuid : UUID = UUID.randomUUID(),
+    val uuid : UUID,
     name: String,
     val age: Age,
     val gender : Gender,
@@ -38,7 +38,20 @@ class Shape (
 
 ) : Turtle(name,x,y,heading,speed,color) {
 
-    constructor(
+    constructor( // The "Primary" constructor
+        name: String, age: Age, gender: Gender,
+        color: Int, sides: Int, length: Double,
+        x: Double, y: Double, heading: Double,
+        speed: Double, lines: MutableList<String>, canon: SpecialVoice? = null
+    ) : this(
+        UUID.randomUUID(), name, age,
+        gender, color, sides,
+        length, x, y,
+        heading, speed, lines,
+        canon
+    )
+
+    constructor( // For import
         genes: DNA
     ) : this(genes.uuid,genes.name,genes.age,
         genes.gender,genes.color,genes.sides,
@@ -46,7 +59,7 @@ class Shape (
         genes.heading,genes.speed,genes.lines,
         genes.canon)
 
-    constructor(
+    constructor( // For legacy import
         dna : List<Any>,
         voice : Speech.VoiceRecord = Speech.reverseBS(dna[7] as String)
     ) : this(UUID.randomUUID(),
