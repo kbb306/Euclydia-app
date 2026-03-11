@@ -4,9 +4,9 @@ import android.speech.tts.Voice
 import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
 import br.com.chatnoir.ggwave_kotlin.GGWaveSampleFormat
 
-class Speech(
-) {
-    private val codecs = mapOf<Gender,Map<Age, GGWaveCodec>>(
+class Speech
+ {
+    private val codecs = mapOf(
         Gender.FEMALE to mapOf(
             Age.CHILD to makeCodec(2),
             Age.ADULT to makeCodec(1)
