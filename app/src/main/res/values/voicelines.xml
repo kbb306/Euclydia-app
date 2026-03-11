@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="adult_lines">
+        <item>I\'m late for work!</item>
+        <item>Such a nice day…</item>
+        <item>Where am I?</item>
+        <item>There goes Billy again. Poor insane kid.</item>
+        <item>Two dimensions two and fro…</item>
+        <item>Shh! Family Matters is on!</item>
+        <item>I hate this neighborhood!</item>
+        <item>I\'m hungry!</item>
+        <item>Talk?</item>
+        <item>Another perfect day in Euclydia!</item>
+        <item>I hate this song!</item>
+        <item>I love this song!</item>
+        <item>WHERE IS MY BRIEFCASE?!</item>
+        <item>Aren\'t we supposed to have limbs?</item>
+        <item>Which building was it again?</item>
+        <item>&quot;Her aim is getting better?&quot; THAT\'S your punchline?</item>
+        <item>I wanna listen to Sinefeld tonight!</item>
+        <item>I\'m bored! Wait is that allowed?</item>
+        <item>I don\'t recognize this song…</item>
+        <item>What\'s up? I MEAN-</item>
+        <item>Family Matters again? Why can\'t we ever listen to something else?</item>
+        <item>Steer clear of the doctor. He\'s creepy.</item>
+        <item>I wish that shape would notice me…</item>
+        <item>This light is too bright for my eye.</item>
+        <item>Oh circles, I slept in!</item>
+        <item>Radio\'s on the fritz again.</item>
+        <item>I miss grandma.</item>
+        <item>Anyone else hear that?</item>
+        <item>WHY DID YOU DO IT?</item>
+    </string-array>
+
+    <string-array name="child_lines">
+        <item>Mom? Dad?</item>
+        <item>Yay, Family Matters!</item>
+        <item>Cipher, Cipher, he\'s insane! Starting fires with his brain!</item>
+        <item>I can\'t molt now, I\'m at school!</item>
+        <item>I wonder if I can walk all the way back around…</item>
+        <item>I hate this song!</item>
+        <item>I love this song!</item>
+        <item> Don\'t talk to that kid, he\'s craaaazy.</item>
+        <item>What if Billy sets ME on fire?!</item>
+        <item>Have you heard about the Cipher kid?</item>
+        <item>I\'m gonna steal the freak\'s sandwich!</item>
+        <item>I\'m late for school!</item>
+        <item>Where does the light come from? Why do I have to be quiet?</item>
+    </string-array>
+
+    <string-array name="scalene_lines">
+        <item>Rock a bye Billy, please don\'t you cry…</item>
+        <item>I\'m sure it\'s not his fault.</item>
+        <item>If you take your medicine, we can spend all day at the park.</item>
+        <item>He\'s just a boy Euclid!</item>
+        <item>You\'re going to change the world, Billy.</item>
+        <item>No matter what happens, I will ALWAYS love you.</item>
+        <item>You can\'t tell the doctor about this.</item>
+        <item>You know what you need…</item>
+    </string-array>
+
+    <string-array name="euclid_lines">
+        <item>You know better than to talk about this!</item>
+        <item>He\'s not a child anymore, Scalene!</item>
+        <item>If word of this gets out…</item>
+        <item>Eye on me, Billy.</item>
+        <item>He needs to take his medicine before he says something we can\'t take back.</item>
+        <item>He\'s too old for lullabies.</item>
+        <item>If you can\'t stop seeing it, you have to stop TALKING about it.</item>
+        <item>You know what you need.</item>
+        <item>A deal\'s a deal.</item>
+        <item>Where did we go wrong?</item>
+        <item>WHY DID YOU DO IT?</item>
+    </string-array>
+
+    <string-array name="bill_lines">
+        <item>Look, can\'t you see them?</item>
+        <item>Mommy, daddy?</item>
+        <item>La la la la la!</item>
+        <item>I don\'t want the medicine!</item>
+        <item>Mommy, you know I don\'t like the crusts!</item>
+        <item>Do I HAVE to go to school?</item>
+        <item>Someday, there\'s gonna be a parade for me.</item>
+        <item>I\'m alone in the universe.</item>
+        <item>Why can\'t I make them understand?</item>
+        <item>JUST LOOK UP?</item>
+        <item>Where did you all go?</item>
+    </string-array>
+</resources>

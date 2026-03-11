@@ -3,19 +3,31 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
-
+import java.util.UUID
 class Shape (
+    val uuid : String = UUID.randomUUID().toString(),
     name: String,
+    val age: Int,
+    val voice : Int,
+    color: Int,
+    val sides: Int,
+    val radius : Double,
     x : Double,
     y : Double,
     heading : Double,
     speed : Double,
-    color: Int,
-    val sides: Int,
-    val radius : Double,
-    val voice : Int,
-    val age: Int
+    var lines : MutableList<String>
+
 ) : Turtle(name,x,y,heading,speed,color) {
+
+    constructor(dna : List<Any>) : this(dna[0] as String,
+        dna[1] as String, dna[2] as Int, dna[3] as Int,
+        dna[4] as Int, dna[5] as Int, dna[6] as Double, dna[7] as Double,
+        dna[8] as Double, dna[9] as Double, dna[10] as Double, dna[11] as MutableList<String>
+    )
+
+
+
 
     override fun update(worldHeight: Double, worldWidth: Double) {
         super.update(worldHeight, worldWidth)
@@ -52,8 +64,15 @@ class Shape (
             }
         }
     }
+
+    fun say(): Triple<String, Int, Int> {
+        val nextLine = lines.random()
+        val pass = Triple(nextLine,voice,age)
+        return pass
+    }
+
     fun export(): List<Any> {
-        val outlist = listOf(name,age,voice,color,sides,radius,x,y,heading,speed)
-        return outlist
+        val dna = listOf(uuid,name,age,voice,color,sides,radius,x,y,heading,speed,lines)
+        return dna
     }
 }
