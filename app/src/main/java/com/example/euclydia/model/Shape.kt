@@ -3,7 +3,6 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
-import android.health.connect.datatypes.units.Length
 import java.util.UUID
 
 enum class Age {
@@ -28,7 +27,7 @@ class Shape (
     val gender : Gender,
     color: Int,
     val sides: Int,
-    val length: Double,
+    length: Double,
     x : Double,
     y : Double,
     heading : Double,
