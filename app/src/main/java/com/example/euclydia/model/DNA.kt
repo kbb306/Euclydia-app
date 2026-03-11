@@ -1,7 +1,12 @@
 package com.example.euclydia.model
 
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.Serializable
 import java.util.UUID
+@InternalSerializationApi @Serializable
 data class DNA (
+    @Contextual
     val uuid: UUID,
     val name: String,
     val age: Age,
