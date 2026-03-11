@@ -53,7 +53,7 @@ class Shape (
         }
     }
     fun export(): List<Any> {
-        val Outlist = listOf(name,age,voice,color,sides,radius,x,y,heading,speed)
-        return Outlist
+        val outlist = listOf(name,age,voice,color,sides,radius,x,y,heading,speed)
+        return outlist
     }
 }
