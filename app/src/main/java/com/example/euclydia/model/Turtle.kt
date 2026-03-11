@@ -24,6 +24,11 @@ abstract class Turtle (
         y += (kotlin.math.sin(radians)* distance)
     }
 
+    fun goto(x : Double, y : Double) {
+        this.x = x
+        this.y = y
+    }
+
     fun turn(degrees : Double) {
         heading = when {
             heading < 360 -> heading + degrees
