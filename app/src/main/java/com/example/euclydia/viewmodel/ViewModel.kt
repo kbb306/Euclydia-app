@@ -9,9 +9,9 @@ class EuclydiaViewModel : ViewModel() {
     private var microphone = Speech()
 
     fun create(name : String, age: Age, gender: Gender, color : Int, sides : Int,
-               radius : Double, x : Double, y : Double, heading : Double, speed :
+              length : Double, x : Double, y : Double, heading : Double, speed :
                Double, lines : MutableList<String>) {
-        val newShape : Shape = Shape(name,age,gender,color,sides,radius,x,y,heading,speed,lines)
+        val newShape : Shape = Shape(name,age,gender,color,sides,length,x,y,heading,speed,lines)
         shapeList.add(newShape)
     }
 
