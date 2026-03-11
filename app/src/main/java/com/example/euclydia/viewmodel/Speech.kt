@@ -1,5 +1,7 @@
-package com.example.euclydia.model
-import br.com.chatnoir.ggwave_kotlin.*
+package com.example.euclydia.viewmodel
+
+import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
+
 class Speech(
     private val codec : GGWaveCodec
 ) {
