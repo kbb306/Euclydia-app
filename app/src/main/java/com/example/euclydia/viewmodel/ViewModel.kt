@@ -1,7 +1,12 @@
 package com.example.euclydia.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import java.io.File
 import com.example.euclydia.model.*
+import kotlinx.serialization.InternalSerializationApi
+
 
 
 class EuclydiaViewModel : ViewModel() {
@@ -15,6 +20,7 @@ class EuclydiaViewModel : ViewModel() {
         shapeList.add(newShape)
     }
 
+    @OptIn(InternalSerializationApi::class)
     fun create(dna: DNA) { // used for import() and possibly standard shape creation
         val newShape = Shape(dna)
         shapeList.add(newShape)
@@ -24,4 +30,24 @@ class EuclydiaViewModel : ViewModel() {
         val newShape  = Shape(dna)
         shapeList.add(newShape)
     }
+
+    fun legacyImport(context : Context, path: String) {
+        csvReader().open(context.openFileInput(path)) {
+            readAllAsSequence().forEach { row ->
+                create(row)
+            }
+        }
+    }
+
+    fun import(context : Context,path: String) {
+        val cryofreeze = context.openFileInput(path)
+            .bufferedReader().use { it.readText() }
+        shapeList.addAll(ShapeJson.decodeShapes(cryofreeze) as MutableList<Shape>)
+    }
+
+    fun export(context: Context, path: String) {
+        val cryofreeze = ShapeJson.encodeShapes(shapeList)
+        context.openFileOutput(path, Context.MODE_PRIVATE).use { it.write(cryofreeze.toByteArray()) }
+    }
+
 }
