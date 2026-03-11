@@ -39,19 +39,19 @@ abstract class Turtle (
         heading = when {
             heading < 360 -> heading + degrees
             else -> heading - degrees
-        } as Double
+        }
     }
 
     private fun wrap(worldWidth: Double, worldHeight: Double) {
         x = when {
-            x < 0f.toDouble() -> x+= worldWidth
-            x > worldWidth -> x-= worldWidth
+            x < 0f.toDouble() -> x + worldWidth
+            x > worldWidth -> x - worldWidth
             else -> x
         } as Double
 
         y = when {
-            y < 0f.toDouble() -> y+= worldHeight
-            y > worldHeight -> y-= worldHeight
+            y < 0f.toDouble() -> y+ worldHeight
+            y > worldHeight -> y- worldHeight
             else -> y
         } as Double
     }
