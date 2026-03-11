@@ -39,8 +39,8 @@ class Speech
 
 
     }
-    suspend fun speak(text: String,gender: Gender ,age : Age) {
-        val codec : GGWaveCodec? = codecFor(age,gender)
+    suspend fun speak(text: String,gender: Gender,age : Age, canon : SpecialVoice?) {
+        val codec : GGWaveCodec? = codecFor(age,gender,canon)
         codec?.encodeAndPlay(text)
     }
 }
