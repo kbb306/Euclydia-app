@@ -2,11 +2,14 @@ package com.example.euclydia.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import com.example.euclydia.model.Age
+import com.example.euclydia.model.DNA
+import com.example.euclydia.model.Gender
+import com.example.euclydia.model.Shape
+import com.example.euclydia.model.ShapeJson
+import com.example.euclydia.model.Speech
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import java.io.File
-import com.example.euclydia.model.*
 import kotlinx.serialization.InternalSerializationApi
-
 
 
 class EuclydiaViewModel : ViewModel() {
