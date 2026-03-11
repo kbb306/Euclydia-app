@@ -11,12 +11,12 @@ class EuclydiaViewModel : ViewModel() {
     fun create(name : String, age: Age, gender: Gender, color : Int, sides : Int,
               length : Double, x : Double, y : Double, heading : Double, speed :
                Double, lines : MutableList<String>) {
-        val newShape : Shape = Shape(name,age,gender,color,sides,length,x,y,heading,speed,lines)
+        val newShape  = Shape(name,age,gender,color,sides,length,x,y,heading,speed,lines)
         shapeList.add(newShape)
     }
 
     fun create(dna : List<Any>) {
-        val newShape : Shape = Shape(dna)
+        val newShape  = Shape(dna)
         shapeList.add(newShape)
     }
 }
