@@ -26,8 +26,8 @@ abstract class Turtle (
 
     fun back(distance: Double) {
         val radians = Math.toRadians(heading)
-        x -= (kotlin.math.cos(radians))
-        y -= (kotlin.math.sin(radians))
+        x -= (kotlin.math.cos(radians)*distance)
+        y -= (kotlin.math.sin(radians)*distance)
     }
 
     fun goto(x : Double, y : Double) {
