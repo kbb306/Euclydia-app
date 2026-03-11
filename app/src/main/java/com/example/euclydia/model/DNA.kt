@@ -1,9 +1,6 @@
 package com.example.euclydia.model
 
-import android.graphics.Color
 import java.util.UUID
-import kotlin.uuid.Uuid
-
 data class DNA (
     val uuid: UUID,
     val name: String,
