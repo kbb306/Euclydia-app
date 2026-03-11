@@ -3,6 +3,7 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
+import android.health.connect.datatypes.units.Length
 import java.util.UUID
 
 enum class Age {
@@ -21,13 +22,13 @@ enum class SpecialVoice {
     EU
 }
 class Shape (
-    val uuid : String = UUID.randomUUID().toString(),
+    val uuid : UUID = UUID.randomUUID(),
     name: String,
     val age: Age,
     val gender : Gender,
     color: Int,
     val sides: Int,
-    val radius : Double,
+    val length: Double,
     x : Double,
     y : Double,
     heading : Double,
@@ -37,14 +38,32 @@ class Shape (
 
 ) : Turtle(name,x,y,heading,speed,color) {
 
-    constructor(dna : List<Any>) : this(dna[0] as String,
-        dna[1] as String, dna[2] as Age, dna[3] as Gender,
-        dna[4] as Int, dna[5] as Int, dna[6] as Double, dna[7] as Double,
-        dna[8] as Double, dna[9] as Double, dna[10] as Double, dna[11] as MutableList<String>, dna[12] as SpecialVoice?
+    constructor(
+        genes: DNA
+    ) : this(genes.uuid,genes.name,genes.age,
+        genes.gender,genes.color,genes.sides,
+        genes.length,genes.x,genes.y,
+        genes.heading,genes.speed,genes.lines,
+        genes.canon)
+
+    constructor(
+        dna : List<Any>,
+        voice : Speech.VoiceRecord = Speech.reverseBS(dna[7] as String)
+    ) : this(UUID.randomUUID(),
+        dna[0] as String,
+        age = voice.age,
+        gender = voice.gender,
+        dna[5] as Int, dna[1] as Int,
+        dna[2] as Double,
+        dna[3] as Double, dna[4] as Double,
+        dna[6] as Double,5.00,
+        dna[8] as MutableList<String>,
+        canon = voice.canon
     )
 
 
 
+    val radius : Double = length/2*kotlin.math.sin((180/sides).toDouble())
 
     override fun update(worldHeight: Double, worldWidth: Double) {
         super.update(worldHeight, worldWidth)
