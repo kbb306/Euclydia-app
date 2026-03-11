@@ -84,7 +84,7 @@ class Shape (
 
     fun say(): Triple<String, Gender, Age> {
         val nextLine = lines.random()
-        val pass = Triple(nextLine,gender as Gender,age)
+        val pass = Triple(nextLine,gender,age)
         return pass
     }
 
