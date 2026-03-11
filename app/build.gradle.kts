@@ -49,6 +49,7 @@ dependencies {
     implementation("io.github.diogosq:ggwave-kotlin:1.0.0")
     implementation("com.github.doyaaaaaken:kotlin-csv-jvm:1.10.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
 // Check GitHub for the latest version
 
 }

@@ -2,6 +2,7 @@ package com.example.euclydia.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
 import com.example.euclydia.model.DNA
 import com.example.euclydia.model.Gender
@@ -9,6 +10,13 @@ import com.example.euclydia.model.Shape
 import com.example.euclydia.model.ShapeJson
 import com.example.euclydia.model.Speech
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.InternalSerializationApi
 
 

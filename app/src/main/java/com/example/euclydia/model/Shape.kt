@@ -103,21 +103,23 @@ class Shape (
         val path = Path()
 
         for (i in 0 until sides) {
-            val angle = Math.toRadians(heading + i * 360f / sides)
-            val px: Double = cameraX + (kotlin.math.cos(angle) * radius)
-            val py: Double = cameraY + (kotlin.math.sin(angle) * radius)
-
-            if (i == 0) path.moveTo(px.toFloat(), py.toFloat()) else path.lineTo(
+            val angle = Math.toRadians(heading + i * 360.0 / sides)
+            val px = x - cameraX + (kotlin.math.cos(angle)* radius)
+            val py = y - cameraY + (kotlin.math.sin(angle)* radius)
+            if (i == 0) path.moveTo(px.toFloat(), py.toFloat())
+            else path.lineTo(
                 px.toFloat(),
                 py.toFloat()
             )
+            path.close()
+            canvas.drawPath(path,paint)
 
             if (isFollowed) {
                 val box = RectF(
-                    (x - cameraX - radius - 12f).toFloat(),
-                    (y - cameraY - radius - 12f).toFloat(),
-                    (x + cameraX + radius + 12f).toFloat(),
-                    (y + cameraY + radius + 12f).toFloat()
+                    (x - cameraX - radius - 12.0).toFloat(),
+                    (y - cameraY - radius - 12.0).toFloat(),
+                    (x + cameraX + radius + 12.0).toFloat(),
+                    (y + cameraY + radius + 12.0).toFloat()
                 )
                 canvas.drawRect(box, paint)
             }
