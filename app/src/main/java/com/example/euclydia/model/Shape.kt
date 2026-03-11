@@ -4,11 +4,27 @@ import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
 import java.util.UUID
+
+enum class Age {
+    CHILD,
+    ADULT
+}
+
+enum class Gender {
+    MALE,
+    FEMALE,
+    ANDROGYNOUS
+}
+
+enum class SpecialVoice {
+    SC,
+    EU
+}
 class Shape (
     val uuid : String = UUID.randomUUID().toString(),
     name: String,
-    val age: Int,
-    val voice : Int,
+    val age: Age,
+    val gender : Gender,
     color: Int,
     val sides: Int,
     val radius : Double,
@@ -16,12 +32,13 @@ class Shape (
     y : Double,
     heading : Double,
     speed : Double,
-    var lines : MutableList<String>
+    var lines : MutableList<String>,
+    var canon : SpecialVoice? = null
 
 ) : Turtle(name,x,y,heading,speed,color) {
 
     constructor(dna : List<Any>) : this(dna[0] as String,
-        dna[1] as String, dna[2] as Int, dna[3] as Int,
+        dna[1] as String, dna[2] as Age, dna[3] as Gender,
         dna[4] as Int, dna[5] as Int, dna[6] as Double, dna[7] as Double,
         dna[8] as Double, dna[9] as Double, dna[10] as Double, dna[11] as MutableList<String>
     )
@@ -65,14 +82,14 @@ class Shape (
         }
     }
 
-    fun say(): Triple<String, Int, Int> {
+    fun say(): Triple<String, Gender, Age> {
         val nextLine = lines.random()
-        val pass = Triple(nextLine,voice,age)
+        val pass = Triple(nextLine,gender as Gender,age)
         return pass
     }
 
     fun export(): List<Any> {
-        val dna = listOf(uuid,name,age,voice,color,sides,radius,x,y,heading,speed,lines)
+        val dna = listOf(uuid,name,age,gender,color,sides,radius,x,y,heading,speed,lines)
         return dna
     }
 }
