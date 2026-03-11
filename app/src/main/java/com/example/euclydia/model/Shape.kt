@@ -3,19 +3,24 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
+import kotlinx.serialization.InternalSerializationApi
+import kotlinx.serialization.Serializable
 import java.util.UUID
 
+@Serializable
 enum class Age {
     CHILD,
     ADULT
 }
 
+@Serializable
 enum class Gender {
     MALE,
     FEMALE,
     ANDROGYNOUS
 }
 
+@Serializable
 enum class SpecialVoice {
     SC,
     EU
@@ -27,7 +32,7 @@ class Shape (
     val gender : Gender,
     color: Int,
     val sides: Int,
-    length: Double,
+    val length: Double,
     x : Double,
     y : Double,
     heading : Double,
@@ -50,32 +55,35 @@ class Shape (
         canon
     )
 
+    @OptIn(InternalSerializationApi::class)
     constructor( // For import
         genes: DNA
-    ) : this(genes.uuid,genes.name,genes.age,
-        genes.gender,genes.color,genes.sides,
-        genes.length,genes.x,genes.y,
-        genes.heading,genes.speed,genes.lines,
-        genes.canon)
+    ) : this(
+        genes.uuid, genes.name, genes.age,
+        genes.gender, genes.color, genes.sides,
+        genes.length, genes.x, genes.y,
+        genes.heading, genes.speed, genes.lines.toMutableList(),
+        genes.canon
+    )
 
     constructor( // For legacy import
-        dna : List<Any>,
-        voice : Speech.VoiceRecord = Speech.reverseBS(dna[7] as String)
-    ) : this(UUID.randomUUID(),
+        dna: List<Any>,
+        voice: Speech.VoiceRecord = Speech.reverseBS(dna[7] as String)
+    ) : this(
+        UUID.randomUUID(),
         dna[0] as String,
         age = voice.age,
         gender = voice.gender,
         dna[5] as Int, dna[1] as Int,
         dna[2] as Double,
         dna[3] as Double, dna[4] as Double,
-        dna[6] as Double,5.00,
+        dna[6] as Double, 5.00,
         dna[8] as MutableList<String>,
         canon = voice.canon
     )
 
 
-
-    val radius : Double = length/2*kotlin.math.sin((180/sides).toDouble())
+    val radius: Double = length / 2 * kotlin.math.sin((180 / sides).toDouble())
 
     override fun update(worldHeight: Double, worldWidth: Double) {
         super.update(worldHeight, worldWidth)
@@ -95,11 +103,14 @@ class Shape (
         val path = Path()
 
         for (i in 0 until sides) {
-            val angle = Math.toRadians(heading + i * 360f /sides)
+            val angle = Math.toRadians(heading + i * 360f / sides)
             val px: Double = cameraX + (kotlin.math.cos(angle) * radius)
             val py: Double = cameraY + (kotlin.math.sin(angle) * radius)
 
-            if (i==0) path.moveTo(px.toFloat(),py.toFloat()) else path.lineTo(px.toFloat(),py.toFloat())
+            if (i == 0) path.moveTo(px.toFloat(), py.toFloat()) else path.lineTo(
+                px.toFloat(),
+                py.toFloat()
+            )
 
             if (isFollowed) {
                 val box = RectF(
@@ -108,13 +119,13 @@ class Shape (
                     (x + cameraX + radius + 12f).toFloat(),
                     (y + cameraY + radius + 12f).toFloat()
                 )
-                canvas.drawRect(box,paint)
+                canvas.drawRect(box, paint)
             }
         }
     }
 
-    data class SpeechRequest (
-        val line : String,
+    data class SpeechRequest(
+        val line: String,
         val age: Age,
         val gender: Gender,
         val canon: SpecialVoice?
@@ -122,12 +133,18 @@ class Shape (
 
     fun say(): SpeechRequest {
         val nextLine = lines.random()
-        val pass = SpeechRequest(nextLine,age,gender,canon)
+        val pass = SpeechRequest(nextLine, age, gender, canon)
         return pass
     }
 
-    fun export(): List<Any?> {
-        val dna = listOf(uuid,name,age,gender,color,sides,radius,x,y,heading,speed,lines,canon)
-        return dna
+    @OptIn(InternalSerializationApi::class)
+    fun export(): DNA {
+        return DNA(
+            uuid, name, age,
+            gender, color, sides,
+            length, x, y,
+            heading, speed, lines,
+            canon
+        )
     }
 }
