@@ -11,10 +11,10 @@ class Shape (
     heading : Double,
     speed : Double,
     color: Int,
-    var sides: Int,
-    var radius : Double,
-    voice : Int,
-    age: Int
+    val sides: Int,
+    val radius : Double,
+    val voice : Int,
+    val age: Int
 ) : Turtle(name,x,y,heading,speed,color) {
 
     override fun update(worldHeight: Double, worldWidth: Double) {
@@ -52,6 +52,8 @@ class Shape (
             }
         }
     }
-
-
+    fun export(): List<Any> {
+        val Outlist = listOf(name,age,voice,color,sides,radius,x,y,heading,speed)
+        return Outlist
+    }
 }

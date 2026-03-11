@@ -4,12 +4,12 @@ import android.graphics.Canvas
 import android.graphics.Paint
 
 abstract class Turtle (
-    var name : String,
+    val name : String,
     var x : Double,
     var y : Double,
     var heading : Double,
     var speed : Double,
-    var color : Int,
+    val color : Int,
 ) {
     var isFollowed : Boolean = false
 
@@ -47,13 +47,13 @@ abstract class Turtle (
             x < 0f.toDouble() -> x + worldWidth
             x > worldWidth -> x - worldWidth
             else -> x
-        } as Double
+        }
 
         y = when {
             y < 0f.toDouble() -> y+ worldHeight
             y > worldHeight -> y- worldHeight
             else -> y
-        } as Double
+        }
     }
 
     abstract fun draw(canvas: Canvas, paint: Paint, cameraX: Double, cameraY: Double)
