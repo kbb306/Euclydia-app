@@ -1,6 +1,5 @@
 package com.example.euclydia.model
 
-import android.speech.tts.Voice
 import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
 import br.com.chatnoir.ggwave_kotlin.GGWaveSampleFormat
 
