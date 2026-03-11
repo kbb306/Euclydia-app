@@ -40,7 +40,7 @@ class Shape (
     constructor(dna : List<Any>) : this(dna[0] as String,
         dna[1] as String, dna[2] as Age, dna[3] as Gender,
         dna[4] as Int, dna[5] as Int, dna[6] as Double, dna[7] as Double,
-        dna[8] as Double, dna[9] as Double, dna[10] as Double, dna[11] as MutableList<String>
+        dna[8] as Double, dna[9] as Double, dna[10] as Double, dna[11] as MutableList<String>, dna[12] as SpecialVoice?
     )
 
 
@@ -82,14 +82,21 @@ class Shape (
         }
     }
 
-    fun say(): Triple<String, Gender, Age> {
+    data class SpeechRequest (
+        val line : String,
+        val age: Age,
+        val gender: Gender,
+        val canon: SpecialVoice?
+    )
+
+    fun say(): SpeechRequest {
         val nextLine = lines.random()
-        val pass = Triple(nextLine,gender,age)
+        val pass = SpeechRequest(nextLine,age,gender,canon)
         return pass
     }
 
-    fun export(): List<Any> {
-        val dna = listOf(uuid,name,age,gender,color,sides,radius,x,y,heading,speed,lines)
+    fun export(): List<Any?> {
+        val dna = listOf(uuid,name,age,gender,color,sides,radius,x,y,heading,speed,lines,canon)
         return dna
     }
 }
