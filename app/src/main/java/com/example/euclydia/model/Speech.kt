@@ -2,8 +2,13 @@ package com.example.euclydia.model
 
 import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
 import br.com.chatnoir.ggwave_kotlin.GGWaveSampleFormat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class Speech
+class Speech (
+    private val scope : CoroutineScope
+)
  {
      companion object {
          private val codecs = mapOf(
@@ -72,8 +77,10 @@ class Speech
         }
     }
 
-    suspend fun speak(text: String,gender: Gender,age : Age, canon : SpecialVoice?) {
-        val codec : GGWaveCodec = codecFor(age,gender,canon)
-        codec.encodeAndPlay(text)
+    fun speak(text: String,gender: Gender,age : Age, canon : SpecialVoice?) {
+        scope.launch {
+            val codec : GGWaveCodec = codecFor(age,gender,canon)
+            delay((1000..6000).random().toLong())
+            codec.encodeAndPlay(text)
     }
-}
+}}

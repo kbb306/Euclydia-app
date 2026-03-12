@@ -127,16 +127,20 @@ class Shape (
     }
 
     data class SpeechRequest(
+        val name: String,
         val line: String,
         val age: Age,
         val gender: Gender,
         val canon: SpecialVoice?
     )
 
-    fun say(): SpeechRequest {
+    fun say(): SpeechRequest? {
+        if((0..100).random() < 1) {
         val nextLine = lines.random()
-        val pass = SpeechRequest(nextLine, age, gender, canon)
+        val pass = SpeechRequest(name,nextLine, age, gender, canon)
         return pass
+        }
+        return null
     }
 
     @OptIn(InternalSerializationApi::class)
