@@ -26,7 +26,7 @@ enum class SpecialVoice {
     EU
 }
 class Shape (
-    val uuid : UUID,
+    var uuid : UUID,
     name: String,
     val age: Age,
     val gender : Gender,
@@ -97,7 +97,7 @@ class Shape (
         cameraY: Double
     ) {
         paint.color = color
-        paint.style = Paint.Style.STROKE
+        paint.style = Paint.Style.FILL
         paint.strokeWidth = 4f
 
         val path = Path()
