@@ -18,10 +18,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.uuid.Uuid
 
+data class LineLogEntry(
+    val uuid: UUID,
+    val name: String,
+    val line: String,
+    val tick: Long
+)
 
 class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
@@ -31,6 +38,20 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
     private var microphone = Speech(lifecycleScope)
+    private var followedUUID : UUID? = null
+    val followedShape : Shape?
+        get() = followedUUID?.let { uuid ->
+            _shapes.value.firstOrNull {it.uuid == uuid}
+        }
+    val followedX : Double?
+        get() = followedShape?.x
+
+    val followedY : Double?
+        get() = followedShape?.y
+
+    val followedName : String?
+        get() = followedShape?.name
+
 
     // Import/Export and dependencies
     fun create(name : String, age: Age, gender: Gender, color : Int, sides : Int, // Raw data create(), may be deprecated soon?
@@ -71,6 +92,17 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
     fun delete() {
 
     }
+
+    fun follow(shape: Shape) {
+        follow(shape.uuid)
+    }
+
+    fun follow(uuid : UUID) {
+        followedUUID = uuid
+        _shapes.value.forEach { shape ->
+            shape.isFollowed = (shape.uuid == uuid)
+        }
+    }
     var worldWidth : Double = 10000.00
         set(value) {
             field = if(value < 50) {
@@ -86,7 +118,15 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
 
     // Non-canvas updaters
 
-    var _lineLog  = MutableStateFlow<List<Pair<String,String>>>(emptyList())
+    private val _lineLog  = MutableStateFlow<List<LineLogEntry>>(emptyList())
+    val lineLog: StateFlow<List<LineLogEntry>> = _lineLog.asStateFlow()
+    @OptIn(InternalSerializationApi::class)
+
+    fun moreInfo(uuid : UUID): DNA {
+        return (_shapes.value.filter { it.uuid == uuid}).first().export()
+    }
+
+
 
     // Animation starts here
 
@@ -115,13 +155,17 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
             shape.update(worldWidth,worldHeight)
             val line = shape.say()
             if(line != null) {
-                _lineLog.value += Pair(line.name,line.line)
+                _lineLog.value += LineLogEntry(
+                    shape.uuid,
+                    shape.name,
+                    line.line,
+                    _tick.value
+                )
                 microphone.speak(line.line, line.gender, line.age, line.canon)
             }
-
-            _shapes.value = current.toList()
-            _tick.value += 1
         }
+        _shapes.value = current.toList()
+        _tick.value += 1
     }
 
 
