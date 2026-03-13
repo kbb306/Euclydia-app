@@ -84,7 +84,7 @@ class Shape (
     )
 
 
-    val radius: Double = length / 2 * kotlin.math.sin((Math.PI / sides).toDouble())
+    val radius: Double = length / 2 * kotlin.math.sin((Math.PI / sides))
 
     override fun update(worldHeight: Double, worldWidth: Double) {
         super.update(worldHeight, worldWidth)
