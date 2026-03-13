@@ -7,8 +7,6 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
 import kotlin.math.pow
-import com.example.euclydia.R
-import kotlin.random.Random
 
 @Serializable
 enum class Age {
@@ -28,10 +26,6 @@ enum class SpecialVoice {
     SC,
     EU
 }
-
-
-
-
 
     class Shape(
         var uuid: UUID,
