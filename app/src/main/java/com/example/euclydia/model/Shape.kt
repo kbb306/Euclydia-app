@@ -98,8 +98,8 @@ class Shape (
         return Math.toDegrees(kotlin.math.atan2(dy,dx))
     }
 
-    fun distance(othershape : Shape): Double {
-        return kotlin.math.sqrt((othershape.x - this.x).pow(2) + (othershape.y  - this.y).pow(2))
+    fun distance(other : Shape): Double {
+        return kotlin.math.sqrt((other.x - this.x).pow(2) + (other.y  - this.y).pow(2))
     }
 
 
