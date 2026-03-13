@@ -44,7 +44,7 @@ class Speech (
          fun reverseBS(code : String): VoiceRecord  {
              return when(val protocol : Int? = oldIDs[code]) {
                  0 -> VoiceRecord(Age.ADULT, Gender.FEMALE, SpecialVoice.SC)
-                 6 -> VoiceRecord(Age.ADULT, Gender.FEMALE, SpecialVoice.EU)
+                 6 -> VoiceRecord(Age.ADULT, Gender.MALE, SpecialVoice.EU)
                  else -> VoiceRecord((reverseLookup[protocol]!!).second,(reverseLookup[protocol]!!).first)
              }
          }
