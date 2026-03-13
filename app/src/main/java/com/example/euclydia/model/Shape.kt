@@ -6,6 +6,7 @@ import android.graphics.RectF
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
+import kotlin.math.pow
 
 @Serializable
 enum class Age {
@@ -83,12 +84,19 @@ class Shape (
     )
 
 
-    val radius: Double = length / 2 * kotlin.math.sin((180 / sides).toDouble())
+    val radius: Double = length / 2 * kotlin.math.sin((Math.PI / sides).toDouble())
 
     override fun update(worldHeight: Double, worldWidth: Double) {
         super.update(worldHeight, worldWidth)
-        turn(1f.toDouble())
+        val randomTurn = (1..10).random()
+        turnTo(heading + randomTurn)
     }
+
+    fun distance(othershape : Shape): Double {
+        return kotlin.math.sqrt((othershape.x - this.x).pow(2) + (othershape.y  - this.y).pow(2))
+    }
+
+
 
     override fun draw(
         canvas: Canvas,

@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
+import kotlin.math.pow
 import kotlin.uuid.Uuid
 
 data class LineLogEntry(
@@ -89,13 +90,27 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
         context.openFileOutput(path, Context.MODE_PRIVATE).use { it.write(cryofreeze.toByteArray()) }
     }
 
-    fun delete() {
-
+    fun delete(UUIDs : List<UUID>) {
+        _shapes.value = _shapes.value.filter { it.uuid !in UUIDs }
     }
 
     fun follow(shape: Shape) {
         follow(shape.uuid)
     }
+
+    fun collisionCheck(shape: Shape) {
+        val mightCollide = _shapes.value.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
+        if (!mightCollide.isEmpty()) {
+            var safe = false
+            var newHeading = 0.00
+            while (!safe) {
+                for (each in mightCollide) {
+                    newHeading = shape.avoid(each)
+                    safe = (mightCollide.none { it.heading != newHeading || it.heading != 360.00 - newHeading })
+                }
+            }
+            shape.turnTo(newHeading)
+    }}
 
     fun follow(uuid : UUID) {
         followedUUID = uuid
@@ -163,6 +178,7 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
                 )
                 microphone.speak(line.line, line.gender, line.age, line.canon)
             }
+            collisionCheck(shape)
         }
         _shapes.value = current.toList()
         _tick.value += 1
