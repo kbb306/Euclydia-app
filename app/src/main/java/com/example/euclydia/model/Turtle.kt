@@ -2,7 +2,6 @@ package com.example.euclydia.model
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import kotlin.compareTo
 
 abstract class Turtle (
     val name : String,
