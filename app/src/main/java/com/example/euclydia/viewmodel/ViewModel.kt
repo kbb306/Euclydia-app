@@ -1,7 +1,10 @@
 package com.example.euclydia.viewmodel
 
+import android.app.Application
 import android.content.Context
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
 import com.example.euclydia.model.DNA
@@ -25,20 +28,19 @@ import kotlin.math.pow
 import kotlin.uuid.Uuid
 
 data class LineLogEntry(
-    val uuid: UUID,
     val name: String,
     val line: String,
     val tick: Long
 )
 
-class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
+class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope) : AndroidViewModel(application) {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
     val shapeList : StateFlow<List<Shape>> = _shapes.asStateFlow()
 
     private val _tick = MutableStateFlow(0L)
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
-    private var microphone = Speech(lifecycleScope)
+    private var microphone = Speech(lifecycleScope,application)
     private var followedUUID : UUID? = null
     val followedShape : Shape?
         get() = followedUUID?.let { uuid ->
@@ -52,6 +54,7 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
 
     val followedName : String?
         get() = followedShape?.name
+
 
 
     // Import/Export and dependencies
@@ -168,15 +171,13 @@ class EuclydiaViewModel(lifecycleScope: CoroutineScope) : ViewModel() {
 
         for(shape in current) {
             shape.update(worldWidth,worldHeight)
-            val line = shape.say()
-            if(line != null) {
+            val request = shape.say()
+            if (request != null) {
                 _lineLog.value += LineLogEntry(
-                    shape.uuid,
-                    shape.name,
-                    line.line,
+                    request.speakerName,
+                    microphone.speak(request),
                     _tick.value
                 )
-                microphone.speak(line.line, line.gender, line.age, line.canon)
             }
             collisionCheck(shape)
         }

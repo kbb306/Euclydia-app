@@ -1,13 +1,16 @@
 package com.example.euclydia.model
 
+import android.content.Context
 import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
 import br.com.chatnoir.ggwave_kotlin.GGWaveSampleFormat
+import com.example.euclydia.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class Speech (
-    private val scope : CoroutineScope
+    private val scope : CoroutineScope,
+    private val context : Context
 )
  {
      companion object {
@@ -27,7 +30,7 @@ class Speech (
          )
 
          val reverseLookup = codecs.flatMap { (gender, ages) ->
-             ages.map {(age,codec) ->
+             ages.map { (age, codec) ->
                  codec to (gender to age)
              }
          }.toMap()
@@ -41,14 +44,28 @@ class Speech (
              "MC" to 8
          )
 
-         fun reverseBS(code : String): VoiceRecord  {
-             return when(val protocol : Int? = oldIDs[code]) {
+         fun reverseBS(code: String): VoiceRecord {
+             return when (val protocol: Int? = oldIDs[code]) {
                  0 -> VoiceRecord(Age.ADULT, Gender.FEMALE, SpecialVoice.SC)
                  6 -> VoiceRecord(Age.ADULT, Gender.MALE, SpecialVoice.EU)
-                 else -> VoiceRecord((reverseLookup[protocol]!!).second,(reverseLookup[protocol]!!).first)
+                 else -> VoiceRecord(
+                     (reverseLookup[protocol]!!).second,
+                     (reverseLookup[protocol]!!).first
+                 )
              }
          }
 
+         fun arrayFor(age: Age, canon: SpecialVoice?): Int {
+             return when (canon) {
+                 SpecialVoice.SC -> R.array.scalene_lines
+                 SpecialVoice.EU -> R.array.euclid_lines
+                 //SpecialVoice.BILL -> R.array.bill_lines
+                 null -> when (age) {
+                     Age.ADULT -> R.array.adult_lines
+                     Age.CHILD -> R.array.child_lines
+                 }
+             }
+         }
      }
 
      data class VoiceRecord(
@@ -77,10 +94,13 @@ class Speech (
         }
     }
 
-    fun speak(text: String,gender: Gender,age : Age, canon : SpecialVoice?) {
+
+    fun speak(request: Shape.SpeechRequest): String {
+        val line = context.resources.getStringArray(arrayFor(request.age,request.canon)).random()
         scope.launch {
-            val codec : GGWaveCodec = codecFor(age,gender,canon)
+            val codec : GGWaveCodec = codecFor(request.age,request.gender,request.canon)
             delay((1000..6000).random().toLong())
-            codec.encodeAndPlay(text)
+            codec.encodeAndPlay(line)
     }
+        return line
 }}
