@@ -92,6 +92,12 @@ class Shape (
         turnTo(heading + randomTurn)
     }
 
+    fun avoid(other : Shape) : Double { // Calculate a safe heading away from the other shape
+        val dx = x - other.x
+        val dy = y - other.y
+        return Math.toDegrees(kotlin.math.atan2(dy,dx))
+    }
+
     fun distance(othershape : Shape): Double {
         return kotlin.math.sqrt((othershape.x - this.x).pow(2) + (othershape.y  - this.y).pow(2))
     }

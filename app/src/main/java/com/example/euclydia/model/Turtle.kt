@@ -77,11 +77,7 @@ abstract class Turtle (
         }
     }
 
-    fun avoid(other : Turtle) : Double { // Calculate a safe heading
-        val dx = x - other.x
-        val dy = y - other.y
-        return Math.toDegrees(kotlin.math.atan2(dy,dx))
-    }
+
 
     abstract fun draw(canvas: Canvas, paint: Paint, cameraX: Double, cameraY: Double)
 }
