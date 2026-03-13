@@ -56,5 +56,10 @@ abstract class Turtle (
         }
     }
 
+    fun collide() {
+        turn(180.00)
+        forward(60.00)
+    }
+
     abstract fun draw(canvas: Canvas, paint: Paint, cameraX: Double, cameraY: Double)
 }
