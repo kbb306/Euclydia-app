@@ -3,8 +3,6 @@ package com.example.euclydia.viewmodel
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.application
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
 import com.example.euclydia.model.DNA
@@ -21,11 +19,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
-import kotlin.math.pow
-import kotlin.uuid.Uuid
+
 
 data class LineLogEntry(
     val name: String,
@@ -60,8 +56,8 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
     // Import/Export and dependencies
     fun create(name : String, age: Age, gender: Gender, color : Int, sides : Int, // Raw data create(), may be deprecated soon?
               length : Double, x : Double, y : Double, heading : Double, speed :
-               Double, lines : MutableList<String>) {
-        val newShape  = Shape(name,age,gender,color,sides,length,x,y,heading,speed,lines)
+               Double, ) {
+        val newShape  = Shape(name,age,gender,color,sides,length,x,y,heading,speed)
         _shapes.value += newShape
     }
 
