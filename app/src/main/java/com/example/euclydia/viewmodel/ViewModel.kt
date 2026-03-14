@@ -124,7 +124,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
             while (!safe) {
                 for (each in mightCollide) {
                     newHeading = shape.avoid(each)
-                    safe = (mightCollide.none { it.heading != newHeading || it.heading != 360.00 - newHeading })
+                    safe = (mightCollide.none { it.heading != newHeading })
                 }
             }
             shape.turnTo(newHeading)
