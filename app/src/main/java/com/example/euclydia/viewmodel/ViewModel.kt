@@ -128,6 +128,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
                 }
             }
             shape.turnTo(newHeading)
+            shape.forward(5.00)
     }}
 
     fun follow(uuid : UUID) {
