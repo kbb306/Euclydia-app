@@ -10,6 +10,7 @@ import com.example.euclydia.model.DNA
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.Shape
 import com.example.euclydia.model.ShapeJson
+import com.example.euclydia.model.SpecialVoice
 import com.example.euclydia.model.Speech
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import kotlinx.coroutines.CoroutineScope
@@ -54,7 +55,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
 
     @OptIn(InternalSerializationApi::class)
     var zygote : DNA = DNA( // Create fragment will modify this and send it to create()
-        UUID.randomUUID(),
+        UUID.fromString("323322"),
         "Bill",
         Age.CHILD,
         Gender.MALE,
@@ -65,7 +66,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
         0.00,
         90.00,
         5.00,
-        null
+        SpecialVoice.BILL
     )
 
 

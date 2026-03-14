@@ -24,7 +24,8 @@ enum class Gender {
 @Serializable
 enum class SpecialVoice {
     SC,
-    EU
+    EU,
+    BILL
 }
 
     class Shape(

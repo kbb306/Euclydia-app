@@ -59,7 +59,7 @@ class Speech (
              return when (canon) {
                  SpecialVoice.SC -> R.array.scalene_lines
                  SpecialVoice.EU -> R.array.euclid_lines
-                 //SpecialVoice.BILL -> R.array.bill_lines
+                 SpecialVoice.BILL -> R.array.bill_lines
                  null -> when (age) {
                      Age.ADULT -> R.array.adult_lines
                      Age.CHILD -> R.array.child_lines
@@ -90,6 +90,7 @@ class Speech (
         return when(specialVoice) {
             SpecialVoice.SC -> makeCodec(0)
             SpecialVoice.EU -> makeCodec(6)
+            SpecialVoice.BILL -> makeCodec(8)
             null -> makeCodec(codecs[gender]?.get(age) ?: 9)
         }
     }
