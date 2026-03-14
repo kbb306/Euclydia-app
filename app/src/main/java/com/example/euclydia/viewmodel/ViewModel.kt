@@ -56,7 +56,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
 
     @OptIn(InternalSerializationApi::class)
     var zygote : DNA = DNA( // Create fragment will modify this and send it to create()
-        UUID.fromString("323322"),
+        UUID.randomUUID(),
         "Bill",
         Age.CHILD,
         Gender.MALE,
