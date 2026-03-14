@@ -187,7 +187,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
         val current = _shapes.value.toMutableList()
 
         for(shape in current) {
-            shape.update(worldWidth,worldHeight)
+            shape.update(worldHeight,worldWidth)
             val request = shape.say()
             if (request != null) {
                 _lineLog.value += LineLogEntry(
