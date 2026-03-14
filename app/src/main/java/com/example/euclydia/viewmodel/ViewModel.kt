@@ -2,6 +2,7 @@ package com.example.euclydia.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
@@ -50,6 +51,22 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
 
     val followedName : String?
         get() = followedShape?.name
+
+    @OptIn(InternalSerializationApi::class)
+    var zygote : DNA = DNA( // Create fragment will modify this and send it to create()
+        UUID.randomUUID(),
+        "Bill",
+        Age.CHILD,
+        Gender.MALE,
+        Color.YELLOW,
+        3,
+        3.33,
+        0.00,
+        0.00,
+        90.00,
+        5.00,
+        null
+    )
 
 
 
