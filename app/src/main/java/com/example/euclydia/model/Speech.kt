@@ -104,4 +104,5 @@ class Speech (
             codec.encodeAndPlay(line)
     }
         return line
-}}
+    }
+}
