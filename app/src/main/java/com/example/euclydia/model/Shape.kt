@@ -39,7 +39,6 @@ enum class SpecialVoice {
         y: Double,
         heading: Double,
         speed: Double,
-        var lines: MutableList<String>,
         var canon: SpecialVoice? = null
 
     ) : Turtle(name, x, y, heading, speed, color) {
@@ -48,13 +47,12 @@ enum class SpecialVoice {
             name: String, age: Age, gender: Gender,
             color: Int, sides: Int, length: Double,
             x: Double, y: Double, heading: Double,
-            speed: Double, lines: MutableList<String>, canon: SpecialVoice? = null
+            speed: Double, canon: SpecialVoice? = null
         ) : this(
             UUID.randomUUID(), name, age,
             gender, color, sides,
             length, x, y,
-            heading, speed, lines,
-            canon
+            heading, speed, canon
         )
 
         @OptIn(InternalSerializationApi::class)
@@ -64,7 +62,7 @@ enum class SpecialVoice {
             genes.uuid, genes.name, genes.age,
             genes.gender, genes.color, genes.sides,
             genes.length, genes.x, genes.y,
-            genes.heading, genes.speed, genes.lines.toMutableList(),
+            genes.heading, genes.speed,
             genes.canon
         )
 
@@ -80,7 +78,6 @@ enum class SpecialVoice {
             dna[2] as Double,
             dna[3] as Double, dna[4] as Double,
             dna[6] as Double, 5.00,
-            dna[8] as MutableList<String>,
             canon = voice.canon
         )
 
@@ -166,8 +163,7 @@ enum class SpecialVoice {
                 uuid, name, age,
                 gender, color, sides,
                 length, x, y,
-                heading, speed, lines,
-                canon
+                heading, speed, canon
             )
         }
     }

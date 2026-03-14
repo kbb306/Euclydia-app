@@ -18,6 +18,5 @@ data class DNA (
     val y: Double,
     val heading: Double,
     val speed: Double,
-    val lines: MutableList<String>,
     val canon: SpecialVoice?
 )
