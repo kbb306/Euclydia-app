@@ -119,6 +119,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
     fun collisionCheck(shape: Shape) {
         val mightCollide = _shapes.value.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
         if (!mightCollide.isEmpty()) {
+            shape.back(.45)
             var safe = false
             var newHeading = 0.00
             while (!safe) {
