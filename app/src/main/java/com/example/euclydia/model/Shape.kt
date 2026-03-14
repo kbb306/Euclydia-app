@@ -63,8 +63,7 @@ enum class SpecialVoice {
             genes.uuid, genes.name, genes.age,
             genes.gender, genes.color, genes.sides,
             genes.length, genes.x, genes.y,
-            genes.heading, genes.speed,
-            genes.canon
+            genes.heading, genes.speed, genes.canon
         )
 
         constructor( // For legacy import
@@ -119,8 +118,6 @@ enum class SpecialVoice {
                     px.toFloat(),
                     py.toFloat()
                 )
-                path.close()
-                canvas.drawPath(path, paint)
 
                 if (isFollowed) {
                     val box = RectF(
@@ -132,6 +129,8 @@ enum class SpecialVoice {
                     canvas.drawRect(box, paint)
                 }
             }
+            path.close()
+            canvas.drawPath(path, paint)
         }
 
         data class SpeechRequest(
