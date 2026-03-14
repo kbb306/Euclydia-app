@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
+import kotlin.random.Random
 
 
 data class LineLogEntry(
@@ -62,8 +63,8 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
         Color.YELLOW,
         3,
         3.33,
-        0.00,
-        0.00,
+        Random.nextDouble(),
+        Random.nextDouble(),
         90.00,
         5.00,
         SpecialVoice.BILL
