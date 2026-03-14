@@ -72,14 +72,10 @@ enum class SpecialVoice {
             voice: Speech.VoiceRecord = Speech.reverseBS(dna[7] as String)
         ) : this(
             UUID.randomUUID(),
-            dna[0] as String,
-            age = voice.age,
-            gender = voice.gender,
-            dna[5] as Int, dna[1] as Int,
-            dna[2] as Double,
-            dna[3] as Double, dna[4] as Double,
-            dna[6] as Double, 5.00,
-            canon = voice.canon
+            dna[0] as String, age = voice.age, gender = voice.gender,
+            dna[5] as Int, dna[1] as Int, dna[2] as Double,
+            dna[3] as Double, dna[4] as Double, dna[6] as Double,
+            5.00, canon = voice.canon
         )
 
 
