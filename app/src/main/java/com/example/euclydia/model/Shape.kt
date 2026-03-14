@@ -119,18 +119,19 @@ enum class SpecialVoice {
                     py.toFloat()
                 )
 
-                if (isFollowed) {
-                    val box = RectF(
-                        (x - cameraX - radius - 12.0).toFloat(),
-                        (y - cameraY - radius - 12.0).toFloat(),
-                        (x + cameraX + radius + 12.0).toFloat(),
-                        (y + cameraY + radius + 12.0).toFloat()
-                    )
-                    canvas.drawRect(box, paint)
-                }
             }
             path.close()
             canvas.drawPath(path, paint)
+
+            if (isFollowed) {
+                val box = RectF(
+                    (x - cameraX - radius - 12.0).toFloat(),
+                    (y - cameraY - radius - 12.0).toFloat(),
+                    (x + cameraX + radius + 12.0).toFloat(),
+                    (y + cameraY + radius + 12.0).toFloat()
+                )
+                canvas.drawRect(box, paint)
+            }
         }
 
         data class SpeechRequest(
