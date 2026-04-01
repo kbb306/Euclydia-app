@@ -1,5 +1,6 @@
 package com.example.euclydia.database
 
+import android.R
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
@@ -13,7 +14,7 @@ import java.util.UUID
 
 @InternalSerializationApi
 @Serializable
-@Entity
+@Entity(tableName = "Shapes")
 data class DNA (
     @Contextual
     @PrimaryKey val uuid: UUID,
@@ -29,4 +30,9 @@ data class DNA (
     val speed: Double,
     val canon: SpecialVoice?
 )
+class Polymerase {
+    fun fromUUID(value : UUID?) : String? = value?.toString()
+
+    fun toUUID(value: String?) : UUID? = value?.let { UUID.fromString(it)}
+}
 

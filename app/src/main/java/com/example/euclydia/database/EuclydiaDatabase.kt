@@ -7,9 +7,8 @@ import kotlinx.serialization.InternalSerializationApi
 
 @OptIn(InternalSerializationApi::class)
 @Database(entities = [DNA::class], version = 1)
-class Database {
-
-    abstract class Database : RoomDatabase() {
-        abstract fun dao() : Dao
+@TypeConverters(Polymerase::class)
+abstract class EuclydiaDatabase : RoomDatabase() {
+    abstract fun dao() : ShapeDao
     }
 }

@@ -1,29 +1,42 @@
 package com.example.euclydia.database
 
+import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.example.euclydia.model.Shape
 import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.uuid.Uuid
 
-interface Dao {
+@Dao
+interface ShapeDao {
     @OptIn(InternalSerializationApi::class)
     @Query("SELECT * FROM Shapes")
-    fun getAll() : Flow<List<Shape>> {
-        TODO("Get data from query and construct shapeList")
-    }
+    fun getAll() : Flow<List<DNA>>
 
-    @Query("SELECT * FROM Shapes WHERE uuid=(:uuid)")
-    fun getShape(uuid: UUID) : Shape {
-        TODO("Get data from query and build shape")
-    }
+    @OptIn(InternalSerializationApi::class)
+    @Query("SELECT * FROM Shapes WHERE uuid=:uuid LIMIT 1")
+    fun getShape(uuid: UUID): DNA?
 
-    @Insert
-    suspend fun insert(new : List<Shape>)
+    @OptIn(InternalSerializationApi::class)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(newShapes : List<DNA>)
 
-    suspend fun sync(input : List<Shape>) : List<Shape>{
-        TODO("Sync local Flowstate and database")
-    }
+    @OptIn(InternalSerializationApi::class)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertOne(newShape : DNA)
+
+    @OptIn(InternalSerializationApi::class)
+    @Upsert
+    suspend fun upsertAll(shapes : List<DNA>)
+
+    @Query("DELETE FROM Shapes WHERE uuid IN (:uuids)")
+    fun deleteIDs(uuids : List<UUID>)
+
+    @Query("DELETE FROM Shapes")
+    fun clear()
+
 }
