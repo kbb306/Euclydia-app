@@ -11,4 +11,3 @@ import kotlinx.serialization.InternalSerializationApi
 abstract class EuclydiaDatabase : RoomDatabase() {
     abstract fun dao() : ShapeDao
     }
-}
