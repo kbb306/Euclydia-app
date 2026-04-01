@@ -1,4 +1,5 @@
 package com.example.euclydia.model
+import com.example.euclydia.database.DNA
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.json.Json
 object ShapeJson {

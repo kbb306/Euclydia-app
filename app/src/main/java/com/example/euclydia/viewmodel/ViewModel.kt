@@ -6,7 +6,7 @@ import android.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
-import com.example.euclydia.model.DNA
+import com.example.euclydia.database.DNA
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.Shape
 import com.example.euclydia.model.ShapeJson

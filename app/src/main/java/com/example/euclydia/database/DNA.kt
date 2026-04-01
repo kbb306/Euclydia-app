@@ -1,13 +1,22 @@
-package com.example.euclydia.model
+package com.example.euclydia.database
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import com.example.euclydia.model.Age
+import com.example.euclydia.model.Gender
+import com.example.euclydia.model.SpecialVoice
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
-@InternalSerializationApi @Serializable
+
+@InternalSerializationApi
+@Serializable
+@Entity
 data class DNA (
     @Contextual
-    val uuid: UUID,
+    @PrimaryKey val uuid: UUID,
     val name: String,
     val age: Age,
     val gender: Gender,
@@ -20,3 +29,4 @@ data class DNA (
     val speed: Double,
     val canon: SpecialVoice?
 )
+

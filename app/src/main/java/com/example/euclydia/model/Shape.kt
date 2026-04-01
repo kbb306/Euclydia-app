@@ -3,6 +3,7 @@ import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Path
 import android.graphics.RectF
+import com.example.euclydia.database.DNA
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
