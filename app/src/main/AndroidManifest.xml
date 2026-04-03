@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.euclydia.view.ListActivity" />
-        <activity android:name=".CreateActivity" />
+        <activity android:name=".view.CreateActivity" />
     </application>
 
 </manifest>
