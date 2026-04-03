@@ -11,7 +11,7 @@ import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 
 class ControlFragment() : Fragment() {
-    private val viewModel: EuclydiaViewModel by activityViewModels()
+
     private lateinit var binding : ControlFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
