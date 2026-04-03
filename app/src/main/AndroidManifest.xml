@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Euclydia">
+        android:theme="@style/Theme.Euclydia"
+        android:name=".view.EuclydiaApplication">
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
@@ -20,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.euclydia.view.ListActivity" />
+        <activity android:name=".CreateActivity" />
     </application>
 
 </manifest>
