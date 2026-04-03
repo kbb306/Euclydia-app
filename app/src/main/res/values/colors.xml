@@ -5,5 +5,6 @@
     <color name="yellow">#f0e036</color>
     <color name="blue">#140be5</color>
     <color name="red">#e5150b</color>
+    <color name="radarGreen">#20fc03</color>
     <color name="background">#e0e0da</color>
 </resources>
