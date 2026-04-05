@@ -4,4 +4,7 @@
     <string name="title">Euclydia</string>
     <string name="list">List</string>
     <string name="no_name">LIFEFORM NOT FOUND</string>
+    <string name="title1">Create</string>
+    <string name="title2">A</string>
+    <string name="title3">Shape</string>
 </resources>
