@@ -7,4 +7,6 @@
     <string name="title1">Create</string>
     <string name="title2">A</string>
     <string name="title3">Shape</string>
+    <string name="nameLabel">Name</string>
+    <string name="sideLabel">Sides</string>
 </resources>
