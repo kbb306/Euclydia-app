@@ -9,4 +9,9 @@
     <string name="title3">Shape</string>
     <string name="nameLabel">Name</string>
     <string name="sideLabel">Sides</string>
+    <string name="childlabel">Child</string>
+    <string name="adultlabel">Adult</string>
+    <string name="genderlabel">\'Gender\'</string>
+    <string name="femalelabel">Female</string>
+    <string name="colorlabel">Color</string>
 </resources>
