@@ -63,29 +63,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameField" />
 
-    <RadioGroup
+    <RadioButton
+        android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/sideField"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="264dp" />
+
+    <RadioButton
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
-        app:layout_constraintStart_toEndOf="@id/sideField"
-        app:layout_constraintTop_toBottomOf="@id/nameField"
-        app:layout_constraintVertical_bias="0.7" >
-
-            <RadioButton
-                android:id="@+id/ageAdult"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adult"/>
-
-
-
-    </RadioGroup>
+        app:layout_constraintHorizontal_bias="0.869"
+        app:layout_constraintStart_toEndOf="@+id/age"
+        tools:layout_editor_absoluteY="264dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
