@@ -70,6 +70,8 @@
         android:id="@+id/closeButton"
         android:layout_width="42dp"
         android:layout_height="30dp"
+        android:drawableStart="@drawable/ic_close"
+        android:drawableTint="@color/red"
         tools:layout_editor_absoluteX="368dp"
         tools:layout_editor_absoluteY="0dp"
         app:layout_constraintEnd_toEndOf="parent"
