@@ -98,17 +98,7 @@ enum class SpecialVoice {
             return kotlin.math.sqrt((other.x - this.x).pow(2) + (other.y - this.y).pow(2))
         }
 
-
-        override fun draw(
-            canvas: Canvas,
-            paint: Paint,
-            cameraX: Double,
-            cameraY: Double
-        ) {
-            paint.color = color
-            paint.style = Paint.Style.FILL
-            paint.strokeWidth = 4f
-
+        fun drawPath(cameraX: Double, cameraY: Double): Path {
             val path = Path()
 
             for (i in 0 until sides) {
@@ -123,6 +113,21 @@ enum class SpecialVoice {
 
             }
             path.close()
+            return path
+        }
+
+        override fun draw(
+            canvas: Canvas,
+            paint: Paint,
+            cameraX: Double,
+            cameraY: Double
+        ) {
+            paint.color = color
+            paint.style = Paint.Style.FILL
+            paint.strokeWidth = 4f
+
+            val path = drawPath(cameraX, cameraY)
+
             canvas.drawPath(path, paint)
 
             if (isFollowed) {
