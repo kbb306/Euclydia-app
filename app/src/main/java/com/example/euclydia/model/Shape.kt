@@ -43,6 +43,7 @@ enum class SpecialVoice {
         speed: Double,
         var canon: SpecialVoice? = null
 
+
     ) : Turtle(name, x, y, heading, speed, color) {
 
         constructor( // The "Primary" constructor

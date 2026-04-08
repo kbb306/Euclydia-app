@@ -17,4 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id = "@+id/plane"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id = "@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:layout_constraintTop_toBottomOf="@id/plane"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,12 +17,17 @@ import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.model.Shape
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import kotlin.getValue
 
 class Plane @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
 ) : View(context,attrs) {
+
+    interface tracker {
+        fun onSelect(uuid: UUID)
+    }
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var shapes : List<Shape> = emptyList()
@@ -73,3 +78,4 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         TODO("Use callback functions and a listener attribute in Shape to make clicking a shape trigger the follow fragment")
     }
 }
+
