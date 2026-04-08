@@ -30,14 +30,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:text="@string/no_name"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@id/followButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/shapeView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/shapeView"
         android:layout_width="56dp"
         android:layout_height="45dp"
         android:src="@drawable/ic_dummy_square"
