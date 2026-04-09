@@ -5,7 +5,6 @@ import android.graphics.ColorFilter
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import com.example.euclydia.model.Shape
-import kotlin.io.path.Path
 
 class ShapeIcon(
     private val shape: Shape
