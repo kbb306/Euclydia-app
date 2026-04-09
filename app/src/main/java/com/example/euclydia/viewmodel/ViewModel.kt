@@ -35,7 +35,7 @@ data class LineLogEntry(
     val tick: Long
 )
 
-class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope) : AndroidViewModel(application) {
+class EuclydiaViewModel(application: Application) : AndroidViewModel(application) {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
     private val repo = Repository.get()
     val shapeList : StateFlow<List<Shape>> = _shapes.asStateFlow()
@@ -48,7 +48,7 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
     private val _tick = MutableStateFlow(0L)
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
-    private var microphone = Speech(lifecycleScope,application)
+    private var microphone = Speech(viewModelScope,application)
     private var followedUUID : UUID? = null
     val followedShape : Shape?
         get() = followedUUID?.let { uuid ->
