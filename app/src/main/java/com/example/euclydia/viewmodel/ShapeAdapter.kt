@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.euclydia.databinding.ListElementBinding
 import com.example.euclydia.model.Shape
+import com.example.euclydia.view.ShapeIcon
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID
@@ -54,7 +55,7 @@ class ShapeListViewHolder(val binding: ListElementBinding) : RecyclerView.ViewHo
             followButton.setOnClickListener {
                 onFollowClick(shape.uuid)
             }
-            shapeView.setImageDrawable(  TODO("Set icon to shape" ))
+            shapeView.setImageDrawable(ShapeIcon(shape))
 
         }
     }
