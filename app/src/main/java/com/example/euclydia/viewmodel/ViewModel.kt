@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
 import com.example.euclydia.database.DNA
+import com.example.euclydia.database.Repository
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.Shape
 import com.example.euclydia.model.ShapeJson
@@ -19,8 +20,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.random.Random
@@ -34,8 +37,14 @@ data class LineLogEntry(
 
 class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope) : AndroidViewModel(application) {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
+    private val repo = Repository.get()
     val shapeList : StateFlow<List<Shape>> = _shapes.asStateFlow()
-
+    val savedShapes: StateFlow<List<Shape>> =
+        repo.shapeList.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
     private val _tick = MutableStateFlow(0L)
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
@@ -53,6 +62,9 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
 
     val followedName : String?
         get() = followedShape?.name
+
+    val select_ids = mutableSetOf<UUID>()
+
 
     @OptIn(InternalSerializationApi::class)
     var zygote : DNA = DNA( // Create fragment will modify this and send it to create()
@@ -150,6 +162,13 @@ class EuclydiaViewModel(application: Application, lifecycleScope: CoroutineScope
                 50.0
             } else value
         }
+
+    fun syncInator() {
+        viewModelScope.launch {
+            repo.clear()
+            repo.insertShapes(_shapes.value)
+        }
+    }
 
     // Non-canvas updaters
 
