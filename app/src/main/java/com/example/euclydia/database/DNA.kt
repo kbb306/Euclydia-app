@@ -31,8 +31,9 @@ data class DNA (
     val canon: SpecialVoice?
 )
 class Polymerase {
+    @TypeConverter
     fun fromUUID(value : UUID?) : String? = value?.toString()
-
+    @TypeConverter
     fun toUUID(value: String?) : UUID? = value?.let { UUID.fromString(it)}
 }
 
