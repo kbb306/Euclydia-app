@@ -25,7 +25,7 @@ class Plane @JvmOverloads constructor(
     attrs: AttributeSet? = null,
 ) : View(context,attrs) {
 
-    interface tracker {
+    interface Tracker {
         fun onSelect(uuid: UUID)
     }
 
