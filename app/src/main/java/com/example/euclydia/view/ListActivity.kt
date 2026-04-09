@@ -23,20 +23,20 @@ class ListActivity : AppCompatActivity() {
     private var backinglist = listOf<Shape>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val adapter = ShapeAdapter(backinglist,viewModel.select_ids) { shape, isChecked ->
-            if(isChecked) {
-                viewModel.select_ids.add(shape.uuid)
-            } else {
-                viewModel.select_ids.remove(shape.uuid)
-            }
-        }
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.shapeList.collect { shapes ->
-                    adapter.updateShapes(shapes)
+        val adapter = ShapeAdapter(
+            emptyList(),
+            viewModel.select_ids,
+            onCheckedChange = { shape, isChecked ->
+                if (isChecked) {
+                    viewModel.select_ids.add(shape.uuid)
+                } else {
+                    viewModel.select_ids.remove(shape.uuid)
                 }
+            },
+            onFollowClick = { uuid ->
+                viewModel.follow(uuid)
             }
-        }
+        )
 
         binding = ListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)

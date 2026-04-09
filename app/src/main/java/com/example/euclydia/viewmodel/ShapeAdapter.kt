@@ -12,9 +12,9 @@ import java.util.UUID
 
 class ShapeAdapter(private var shapelist : List<Shape>,
                    private val ids : MutableSet<UUID>,
-                   private val onCheckedChange: (Shape, Boolean) -> Unit
+                   private val onCheckedChange: (Shape, Boolean) -> Unit,
+                   private val onFollowClick: (UUID) -> Unit
 ) : RecyclerView.Adapter<ShapeListViewHolder>() {
-    private var onClickListener : View.OnClickListener? = null
 
     fun updateShapes(newShapes: List<Shape>) {
         shapelist = newShapes
@@ -29,7 +29,7 @@ class ShapeAdapter(private var shapelist : List<Shape>,
     override fun onBindViewHolder(p0: ShapeListViewHolder, p1: Int) {
         val shape = shapelist[p1]
         val isChecked = ids.contains(shape.uuid)
-        p0.bind(shape, isChecked, onCheckedChange)
+        p0.bind(shape, isChecked, onCheckedChange, onFollowClick)
     }
 
     override fun getItemCount(): Int {
@@ -42,13 +42,17 @@ class ShapeAdapter(private var shapelist : List<Shape>,
 class ShapeListViewHolder(val binding: ListElementBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(shape : Shape,
              isChecked : Boolean,
-             onCheckedChange: (Shape, Boolean) -> Unit) {
+             onCheckedChange: (Shape, Boolean) -> Unit,
+             onFollowClick: (UUID) -> Unit) {
         binding.apply {
             shapeName.text = shape.name
             checkBox.setOnCheckedChangeListener(null)
             checkBox.isChecked = isChecked
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 onCheckedChange(shape,isChecked)
+            }
+            followButton.setOnClickListener {
+                onFollowClick(shape.uuid)
             }
             shapeView.setImageDrawable(  TODO("Set icon to shape" ))
 
