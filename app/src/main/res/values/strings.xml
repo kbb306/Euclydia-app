@@ -17,4 +17,7 @@
     <string name="x">X:</string>
     <string name="y">Y:</string>
     <string name="following">Following:</string>
+    <string name="shape_n_list">Shape \n List</string>
+    <string name="importbutton">Import</string>
+    <string name="exportbutton">Export</string>
 </resources>
