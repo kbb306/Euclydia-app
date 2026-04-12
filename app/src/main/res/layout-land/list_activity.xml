@@ -72,25 +72,16 @@
         android:id="@+id/Import"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/background"
         android:text="@string/importbutton"
-        android:textColor="@color/black"
-        app:cornerRadius="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/back"
-        app:strokeColor="@color/blue"
-        app:strokeWidth="3dp" />
-
+        style="@style/BlueButton"/>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/Export"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/background"
         android:text="@string/exportbutton"
-        android:textColor="@color/black"
-        app:cornerRadius="0dp"
-        app:strokeColor="@color/blue"
-        app:strokeWidth="3dp"
+        style="@style/BlueButton"
         tools:layout_editor_absoluteX="266dp"
         tools:layout_editor_absoluteY="624dp"
         android:layout_marginBottom="16dp"
