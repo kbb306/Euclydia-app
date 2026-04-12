@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title1"
+        android:textColor="@color/blue"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title2"
+        android:textColor="@color/yellow"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/title1"
+        app:layout_constraintStart_toStartOf="@+id/title1"
+        app:layout_constraintTop_toBottomOf="@+id/title1" />
+
+    <TextView
+        android:id="@+id/title3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="@string/title3"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/title2"
+        app:layout_constraintStart_toStartOf="@+id/title2"
+        app:layout_constraintTop_toBottomOf="@+id/title2" />
+
+    <EditText
+        android:id="@+id/nameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="164dp"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/nameLabel"
+        app:layout_constraintBottom_toTopOf="@+id/nameField"
+        app:layout_constraintEnd_toEndOf="@+id/nameField"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/nameField" />
+
+    <EditText
+        android:id="@+id/sideField"
+        android:layout_width="103dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="100dp"
+        android:ems="2"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:text="@string/sideLabel"
+        app:layout_constraintEnd_toEndOf="@+id/sideField"
+        app:layout_constraintStart_toStartOf="@+id/sideField"
+        app:layout_constraintTop_toBottomOf="@+id/sideField" />
+
+    <RadioButton
+        android:id="@+id/age1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nameField"
+        app:layout_constraintStart_toEndOf="@+id/nameField"
+        app:layout_constraintTop_toTopOf="@+id/nameField" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/adultlabel"
+        app:layout_constraintEnd_toEndOf="@+id/age1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/age1"
+        app:layout_constraintTop_toBottomOf="@+id/age1" />
+
+    <RadioButton
+        android:id="@+id/age2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        app:layout_constraintStart_toEndOf="@+id/age1"
+        app:layout_constraintTop_toTopOf="@+id/age1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/childlabel"
+        app:layout_constraintEnd_toEndOf="@+id/age2"
+        app:layout_constraintStart_toStartOf="@+id/age2"
+        app:layout_constraintTop_toBottomOf="@+id/age2" />
+
+    <TextView
+        android:id="@+id/genderLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/genderlabel"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/female"
+        app:layout_constraintEnd_toEndOf="@+id/female"
+        app:layout_constraintStart_toStartOf="@+id/female" />
+
+    <RadioButton
+        android:id="@+id/female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        app:layout_constraintStart_toEndOf="@+id/male"
+        app:layout_constraintTop_toTopOf="@+id/male" />
+
+    <TextView
+        android:id="@+id/femalelabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/femalelabel"
+        app:layout_constraintEnd_toEndOf="@+id/female"
+        app:layout_constraintStart_toStartOf="@+id/female"
+        app:layout_constraintTop_toBottomOf="@+id/female" />
+
+    <RadioButton
+        android:id="@+id/male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="83dp"
+        app:layout_constraintStart_toEndOf="@+id/sideField"
+        app:layout_constraintTop_toTopOf="@+id/sideField" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        app:layout_constraintEnd_toEndOf="@+id/male"
+        app:layout_constraintStart_toStartOf="@+id/male"
+        app:layout_constraintTop_toBottomOf="@+id/male" />
+
+    <RadioButton
+        android:id="@+id/nb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="116dp"
+        app:layout_constraintStart_toEndOf="@+id/female"
+        app:layout_constraintTop_toTopOf="@+id/female" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N/A"
+        app:layout_constraintEnd_toEndOf="@+id/nb"
+        app:layout_constraintStart_toStartOf="@+id/nb"
+        app:layout_constraintTop_toBottomOf="@+id/nb" />
+
+    <Spinner
+        android:id="@+id/color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.546"
+        app:layout_constraintStart_toEndOf="@+id/age2"
+        app:layout_constraintTop_toTopOf="@+id/age2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/colorlabel"
+        app:layout_constraintBottom_toTopOf="@+id/color"
+        app:layout_constraintEnd_toEndOf="@+id/color"
+        app:layout_constraintStart_toStartOf="@+id/color" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/create"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/nb"
+        app:strokeColor="@color/yellow"
+        app:strokeWidth="3dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
