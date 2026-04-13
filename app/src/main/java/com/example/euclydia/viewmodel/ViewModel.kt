@@ -150,6 +150,11 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             shape.isFollowed = (shape.uuid == uuid)
         }
     }
+
+    fun unfollow() {
+        followedUUID = null
+    }
+
     var worldWidth : Double = 10000.00
         set(value) {
             field = if(value < 50) {
