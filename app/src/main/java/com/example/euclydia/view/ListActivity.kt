@@ -31,7 +31,7 @@ class ListActivity : AppCompatActivity() {
                 }
             },
             onFollowClick = { uuid ->
-                viewModel.follow(uuid)
+                // Intent here
             }
         )
 
