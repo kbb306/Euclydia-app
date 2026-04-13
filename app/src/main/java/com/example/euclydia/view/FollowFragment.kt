@@ -30,6 +30,15 @@ class FollowFragment(val uuid : UUID) : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding.delete.setOnClickListener {
+            val delete = UniversalDialog(
+                title = "Confirm Deletion",
+                message = "Are you sure you want to delete the selected shapes?",
+                positive = "Yes",
+                negative = "No",
+                neutral = null
+            )
+        }
 
     }
 
