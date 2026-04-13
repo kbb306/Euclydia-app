@@ -14,6 +14,8 @@ import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Plane.Tracker {
     private lateinit var binding: ActivityMainBinding
+    val fragMan = supportFragmentManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,25 +27,24 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val fragMan = supportFragmentManager
-        val id = intent.getSerializableExtra<UUID>("ID", UUID::class.java) as UUID
-        if (id != null) {
+        val id = intent.getSerializableExtra("ID", UUID::class.java) as UUID
+        if (id != null) { // This should be null when activity is first started.
             val fragment = FollowFragment(id)
-
+            fragMan.beginTransaction().add(binding.bottom.id,fragment).commit()
         }
         else {
             val fragment = ControlFragment()
-            fragMan.beginTransaction().replace(binding.bottom.id,fragment)
+            fragMan.beginTransaction().replace(binding.bottom.id,fragment).commit()
         }
     }
 
     override fun onSelect(uuid: UUID) {
-        supportFragmentManager
+
     }
 
     companion object {
         fun createIntent(context : Context, shapeID : UUID?): Intent {
-            var intent = Intent(context, MainActivity::class.java).apply {
+            val intent = Intent(context, MainActivity::class.java).apply {
                 putExtra("ID",shapeID)
             }
             return intent
