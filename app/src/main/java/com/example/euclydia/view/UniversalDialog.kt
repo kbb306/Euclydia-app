@@ -31,7 +31,7 @@ class UniversalDialog(
 
         if (negative != null) {
             builder.setNegativeButton(negative) { _, _ ->
-                listener.onDialogNegativeClick(this)
+                dismiss()
             }
         }
 
@@ -49,7 +49,6 @@ class UniversalDialog(
     interface universalListener {
         fun onDialogPositiveClick(dialog: DialogFragment)
         fun onDialogNeutralClick(dialog: DialogFragment)
-        fun onDialogNegativeClick(dialog: DialogFragment)
     }
 
     override fun onAttach(context: Context) {
