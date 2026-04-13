@@ -34,8 +34,7 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                 }
             },
             onFollowClick = { uuid ->
-                val followCall = Intent(this, MainActivity::class.java)
-                followCall.putExtra("ID",uuid)
+                val followCall = MainActivity.createIntent(this,uuid)
                 startActivity(followCall)
             }
         )
@@ -94,8 +93,6 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
         // N/A
     }
 
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
 
-    }
     // This isn't as universal as I would have liked.
 }
