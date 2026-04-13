@@ -44,6 +44,11 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
             )
             delete.show(childFragmentManager,"FOLLOW_DELETE")
         }
+        binding.closeButton.setOnClickListener {
+            TODO("Fragment fuckery. " +
+                    "Must ALWAYS return to control fragment regardless of how many follow fragments are on backstack. " +
+                    "Maybe destroy fragment?")
+        }
 
     }
 
