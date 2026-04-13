@@ -30,6 +30,8 @@ class FollowFragment(val uuid : UUID) : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding.xVal.text = viewModel.followedX.toString()
+        binding.yVal.text = viewModel.followedY.toString()
         binding.delete.setOnClickListener {
             val delete = UniversalDialog(
                 title = "Confirm Deletion",
