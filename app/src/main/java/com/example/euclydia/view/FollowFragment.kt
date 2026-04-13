@@ -45,9 +45,7 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
             delete.show(childFragmentManager,"FOLLOW_DELETE")
         }
         binding.closeButton.setOnClickListener {
-            TODO("Fragment fuckery. " +
-                    "Must ALWAYS return to control fragment regardless of how many follow fragments are on backstack. " +
-                    "Maybe destroy fragment?")
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
     }
@@ -55,14 +53,13 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         viewModel.unfollow()
         viewModel.delete(listOf(uuid))
+        parentFragmentManager.beginTransaction().remove(this).commit()
     }
 
     override fun onDialogNeutralClick(dialog: DialogFragment) {
         // N/A
     }
 
-    override fun onDialogNegativeClick(dialog: DialogFragment) {
 
-    }
 
 } // Still not actually universal
