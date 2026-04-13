@@ -2,6 +2,7 @@ package com.example.euclydia.view
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -24,23 +25,40 @@ class UniversalDialog(
 
         if (positive != null) {
             builder.setPositiveButton(positive) { _, _ ->
-                // Callback function here
+                listener.onDialogPositiveClick(this)
             }
         }
 
         if (negative != null) {
             builder.setNegativeButton(negative) { _, _ ->
-                // Callback function here
+                listener.onDialogNegativeClick(this)
             }
         }
 
         if (neutral != null) {
             builder.setNeutralButton(neutral) { _, _ ->
-                // Callback function here
+                listener.onDialogNeutralClick(this)
             }
         }
 
         return builder.create()
+    }
+
+    internal lateinit var listener : universalListener
+
+    interface universalListener {
+        fun onDialogPositiveClick(dialog: DialogFragment)
+        fun onDialogNeutralClick(dialog: DialogFragment)
+        fun onDialogNegativeClick(dialog: DialogFragment)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            listener = context as universalListener
+        } catch (e : ClassCastException) {
+            throw ClassCastException(context.toString() + " must implement the interface")
+        }
     }
 
     override fun onStart() {
