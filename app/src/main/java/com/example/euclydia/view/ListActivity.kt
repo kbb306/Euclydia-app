@@ -60,7 +60,7 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                         this
                     )
                     binding.back.setOnClickListener {
-                        TODO("On stop call")
+                        onBackPressedDispatcher.onBackPressed()
                     }
 
                     binding.selall.setOnCheckedChangeListener { _, isChecked ->
@@ -84,6 +84,11 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                         delete.show(supportFragmentManager,"LIST_DELETE")
                     }
                 }
+
+    override fun onStop() {
+        viewModel.syncInator()
+        super.onStop()
+    }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         viewModel.delete(viewModel.select_ids.toList())
