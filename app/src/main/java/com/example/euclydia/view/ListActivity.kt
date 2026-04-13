@@ -1,9 +1,11 @@
 package com.example.euclydia.view
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -11,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.euclydia.databinding.ListActivityBinding
 import com.example.euclydia.viewmodel.ShapeAdapter
 import kotlinx.coroutines.launch
+import java.util.UUID
 import kotlin.getValue
 
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
     private lateinit var binding: ListActivityBinding
     private val viewModel: EuclydiaViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +34,9 @@ class ListActivity : AppCompatActivity() {
                 }
             },
             onFollowClick = { uuid ->
-                // Intent here
+                val followCall = Intent(this, MainActivity::class.java)
+                followCall.putExtra("ID",uuid)
+                startActivity(followCall)
             }
         )
 
@@ -77,6 +82,20 @@ class ListActivity : AppCompatActivity() {
                             negative = "No",
                             neutral = null
                         )
+                        delete.show(supportFragmentManager,"LIST_DELETE")
                     }
                 }
-            }
+
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        viewModel.delete(viewModel.select_ids.toList())
+    }
+
+    override fun onDialogNeutralClick(dialog: DialogFragment) {
+        // N/A
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+
+    }
+    // This isn't as universal as I would have liked.
+}

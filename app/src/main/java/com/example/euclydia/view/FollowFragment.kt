@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.euclydia.databinding.FollowFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import java.util.UUID
 
-class FollowFragment(val uuid : UUID) : Fragment() {
+class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalListener {
     private lateinit var binding : FollowFragmentBinding
     private val viewModel : EuclydiaViewModel by activityViewModels()
 
@@ -30,6 +31,7 @@ class FollowFragment(val uuid : UUID) : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        binding.name.text = viewModel.followedName.toString()
         binding.xVal.text = viewModel.followedX.toString()
         binding.yVal.text = viewModel.followedY.toString()
         binding.delete.setOnClickListener {
@@ -40,8 +42,22 @@ class FollowFragment(val uuid : UUID) : Fragment() {
                 negative = "No",
                 neutral = null
             )
+            delete.show(childFragmentManager,"FOLLOW_DELETE")
         }
 
     }
 
-}
+    override fun onDialogPositiveClick(dialog: DialogFragment) {
+        viewModel.unfollow()
+        viewModel.delete(listOf(uuid))
+    }
+
+    override fun onDialogNeutralClick(dialog: DialogFragment) {
+        // N/A
+    }
+
+    override fun onDialogNegativeClick(dialog: DialogFragment) {
+
+    }
+
+} // Still not actually universal
