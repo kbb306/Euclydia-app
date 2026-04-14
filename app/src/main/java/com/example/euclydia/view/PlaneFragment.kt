@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.euclydia.databinding.ControlFragmentBinding
+import com.example.euclydia.databinding.PlaneFragmentBinding
 import com.example.euclydia.model.Shape
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class Plane @JvmOverloads constructor(
 
 class PlaneFragment : androidx.fragment.app.Fragment() {
     private val viewModel: EuclydiaViewModel by activityViewModels()
-    private lateinit var binding: ControlFragmentBinding
+    private lateinit var binding: PlaneFragmentBinding
 
     private lateinit var listener : Plane.Tracker
 
@@ -71,7 +72,7 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ControlFragmentBinding.inflate(inflater, container, false)
+        binding = PlaneFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
