@@ -74,6 +74,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameField" />
 
+    <EditText
+        android:id="@+id/lengthfield"
+        android:inputType="number"
+        android:ems="2"
+        android:layout_width="103dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toEndOf="@id/nameField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameField" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -90,11 +103,10 @@
         tools:layout_editor_absoluteX="280dp"
         tools:layout_editor_absoluteY="300dp"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@id/sideField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/sideField"
-        app:layout_constraintBottom_toBottomOf="@id/sideField"
-        app:layout_constraintHorizontal_bias=".7">
+        app:layout_constraintStart_toStartOf="@id/gendergroup"
+        app:layout_constraintEnd_toEndOf="@id/gendergroup"
+        app:layout_constraintTop_toBottomOf="@id/sideField"
+        >
 
         <RadioButton
             android:id="@+id/adult"
@@ -145,10 +157,10 @@
         android:id="@+id/color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colorlabel"
-        tools:layout_editor_absoluteX="136dp" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/colorlabel" />
 
     <TextView
         android:id="@+id/colorlabel"
@@ -168,9 +180,10 @@
         android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/color"
+        app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="@id/color"
         app:layout_constraintTop_toBottomOf="@id/color"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.75" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
