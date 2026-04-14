@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
@@ -16,8 +17,11 @@ import com.example.euclydia.R
 import com.example.euclydia.databinding.CreateActivityBinding
 import com.example.euclydia.model.Age
 import com.example.euclydia.model.Gender
+import com.example.euclydia.viewmodel.ColorOption
 import kotlinx.serialization.InternalSerializationApi
 import kotlin.getValue
+
+
 
 
 class CreateActivity : AppCompatActivity() {
@@ -25,8 +29,20 @@ class CreateActivity : AppCompatActivity() {
     private val viewModel: EuclydiaViewModel by viewModels()
 
     @OptIn(InternalSerializationApi::class)
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        val colorOptions = listOf(
+            ColorOption("Red", Color.RED),
+            ColorOption("Blue", android.graphics.Color.BLUE),
+            ColorOption("Green", android.graphics.Color.GREEN),
+            ColorOption("Yellow", android.graphics.Color.YELLOW),
+            ColorOption("Cyan", android.graphics.Color.CYAN),
+            ColorOption("Magenta", android.graphics.Color.MAGENTA),
+            ColorOption("White", android.graphics.Color.WHITE),
+            ColorOption("Black", android.graphics.Color.BLACK)
+        )
+
+        super.onCreate(savedInstanceState)
         binding = CreateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -74,18 +90,37 @@ class CreateActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.zygote.age = when(binding.agegroup.checkedRadioButtonId) {
-            R.id.adult -> Age.ADULT
-            R.id.child -> Age.CHILD
-            else -> null
-        }!!
+        binding.adult.isChecked = true
+        binding.male.isChecked = true
 
-        viewModel.zygote.gender = when(binding.gendergroup.checkedRadioButtonId) {
-            R.id.male -> Gender.MALE
-            R.id.female -> Gender.FEMALE
-            R.id.nb -> Gender.ANDROGYNOUS
-            else -> null
-        }!!
+        viewModel.zygote.age = Age.ADULT
+        viewModel.zygote.gender = Gender.MALE
+
+        binding.agegroup.setOnCheckedChangeListener { _, checkedId ->
+            viewModel.zygote.age = when (checkedId) {
+                R.id.adult -> Age.ADULT
+                R.id.child -> Age.CHILD
+                else -> viewModel.zygote.age
+            }
+        }
+
+        binding.gendergroup.setOnCheckedChangeListener { _, checkedId ->
+            viewModel.zygote.gender = when (checkedId) {
+                R.id.male -> Gender.MALE
+                R.id.female -> Gender.FEMALE
+                R.id.nb -> Gender.ANDROGYNOUS
+                else -> viewModel.zygote.gender
+            }
+        }
+
+        val colorAdapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            colorOptions.map { it.name }
+        )
+
+        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
+        binding.color.adapter = colorAdapter
 
         binding.color.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(
@@ -94,7 +129,7 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Long
             ) {
-                viewModel.zygote.color = p0?.getItemAtPosition(p2).toString().toIntOrNull() ?: Color.YELLOW
+                viewModel.zygote.color = colorOptions[p2].value
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
