@@ -23,7 +23,7 @@ data class DNA (
     var gender: Gender,
     var color: Int,
     var sides: Int,
-    val length: Double,
+    var length: Double,
     val x: Double,
     val y: Double,
     val heading: Double,
