@@ -53,8 +53,6 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                 }
             }
         }
-                    binding = ListActivityBinding.inflate(layoutInflater)
-                    setContentView(binding.root)
 
                     val shapes = viewModel.shapeList
 
