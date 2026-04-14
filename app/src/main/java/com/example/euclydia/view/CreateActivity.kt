@@ -1,6 +1,7 @@
 package com.example.euclydia.view
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.Editable
@@ -53,7 +54,7 @@ class CreateActivity : AppCompatActivity() {
 
         binding.sideField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.zygote.sides = p0.toString().toInt() //TODO. This is terrible. I know there's a better way to do this
+                viewModel.zygote.sides = p0.toString().toIntOrNull() ?: 3
             }
 
             override fun beforeTextChanged(
@@ -93,7 +94,7 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Long
             ) {
-                viewModel.zygote.color = p0?.getItemAtPosition(p2).toString().toInt() // TODO: Also fix this
+                viewModel.zygote.color = p0?.getItemAtPosition(p2).toString().toIntOrNull() ?: Color.YELLOW
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -102,7 +103,7 @@ class CreateActivity : AppCompatActivity() {
 
         binding.lengthfield.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.zygote.length = p0.toString().toDouble() //TODO: And this
+                viewModel.zygote.length = p0.toString().toDoubleOrNull() ?: 3.33
             }
 
             override fun beforeTextChanged(

@@ -52,6 +52,8 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private lateinit var binding: ControlFragmentBinding
 
+    private lateinit var listener : Plane.Tracker
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val plane : Plane = Plane(context)
         super.onCreate(savedInstanceState)
