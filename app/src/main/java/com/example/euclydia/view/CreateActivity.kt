@@ -40,7 +40,6 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Int
             ) {
-                TODO("Not yet implemented")
             }
 
             override fun onTextChanged(
@@ -49,13 +48,12 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Int
             ) {
-                TODO("Not yet implemented")
             }
         })
 
         binding.sideField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.zygote.sides = p0.toString().toInt()
+                viewModel.zygote.sides = p0.toString().toInt() //TODO. This is terrible. I know there's a better way to do this
             }
 
             override fun beforeTextChanged(
@@ -64,7 +62,6 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Int
             ) {
-                TODO("Not yet implemented")
             }
 
             override fun onTextChanged(
@@ -73,7 +70,6 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Int
             ) {
-                TODO("Not yet implemented")
             }
         })
 
@@ -97,12 +93,39 @@ class CreateActivity : AppCompatActivity() {
                 p2: Int,
                 p3: Long
             ) {
-                viewModel.zygote.color = p0?.getItemAtPosition(p2).toString().toInt()
+                viewModel.zygote.color = p0?.getItemAtPosition(p2).toString().toInt() // TODO: Also fix this
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
+        }
+
+        binding.lengthfield.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.zygote.length = p0.toString().toDouble() //TODO: And this
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+            }
+        })
+
+        binding.create.setOnClickListener {
+            viewModel.create(viewModel.zygote)
+            viewModel.syncInator()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
