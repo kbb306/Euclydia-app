@@ -8,6 +8,7 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
 import kotlin.math.pow
+import kotlin.random.Random
 
 @Serializable
 enum class Age {
@@ -87,8 +88,11 @@ enum class SpecialVoice {
 
         override fun update(worldHeight: Double, worldWidth: Double) {
             super.update(worldHeight, worldWidth)
-            val randomTurn = (1..10).random()
-            turnTo(heading + randomTurn)
+            val randomTurn = (-10..10).random()
+            if (Random.nextDouble() < 0.05) {
+                turnTo(heading + randomTurn)
+            }
+            forward(3.00)
         }
 
         fun avoid(other: Shape): Double { // Calculate a safe heading away from the other shape

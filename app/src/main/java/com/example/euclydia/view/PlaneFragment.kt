@@ -74,8 +74,8 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.shapeList.collect { shapes ->
-                    binding.planeView.submit(shapes)
+                viewModel.tick.collect {
+                    binding.planeView.submit(viewModel.shapeList.value)
                 }
             }
         }
@@ -86,9 +86,6 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         viewModel.startLoop()
     }
 
-    override fun onDestroy() {
-        viewModel.stopLoop()
-        super.onDestroy()
-    }
+
 }
 

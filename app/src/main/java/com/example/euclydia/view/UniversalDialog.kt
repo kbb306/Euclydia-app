@@ -53,10 +53,13 @@ class UniversalDialog(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        try {
-            listener = context as universalListener
-        } catch (e : ClassCastException) {
-            throw ClassCastException(context.toString() + " must implement the interface")
+
+        listener = when {
+            parentFragment is universalListener -> parentFragment as universalListener
+            context is universalListener -> context
+            else -> throw ClassCastException(
+                "${parentFragment ?: context} must implement UniversalDialog.universalListener"
+            )
         }
     }
 

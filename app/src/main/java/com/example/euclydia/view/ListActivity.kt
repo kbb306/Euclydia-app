@@ -87,10 +87,7 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                     }
                 }
 
-    override fun onStop() {
-        viewModel.syncInator()
-        super.onStop()
-    }
+
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         viewModel.delete(viewModel.select_ids.toList())

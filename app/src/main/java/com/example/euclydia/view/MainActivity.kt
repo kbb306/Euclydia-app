@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
             if (id != null) {
                 supportFragmentManager.beginTransaction()
                     .replace(binding.bottom.id, FollowFragment(id))
+                    .addToBackStack(null)
                     .commit()
             } else {
                 supportFragmentManager.beginTransaction()

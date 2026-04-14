@@ -56,10 +56,8 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     private var microphone = Speech(viewModelScope,application)
     private val _followedUUID = MutableStateFlow<UUID?>(null)
     val followedUUID: StateFlow<UUID?> = _followedUUID.asStateFlow()
-    val followedShape : Shape?
-        get() = followedUUID.let { uuid ->
-            shapeList.value.firstOrNull {it.uuid == _followedUUID.value}
-        }
+    val followedShape: Shape?
+        get() = shapeList.value.firstOrNull { it.uuid == _followedUUID.value }
     val followedX : Double?
         get() = followedShape?.x
 
@@ -98,6 +96,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         dna.uuid = UUID.randomUUID()// used for import() and standard shape creation
         val newShape = Shape(dna)
         ShapeStore.addShape(newShape)
+        syncInator()
     }
 
 
@@ -124,6 +123,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     fun delete(UUIDs : List<UUID>) {
         ShapeStore.removeShapes(UUIDs)
+        syncInator()
     }
 
     fun follow(shape: Shape) {

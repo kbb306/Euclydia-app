@@ -40,6 +40,13 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
         binding.lineview.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.tick.collect {
+                    binding.name.text = viewModel.followedName ?: ""
+                    binding.xVal.text = viewModel.followedX?.toString() ?: ""
+                    binding.yVal.text = viewModel.followedY?.toString() ?: ""
+                }
+            }
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.followedLineLog.collect { lines ->
                     adapter.submitLines(lines)
                 }
@@ -49,9 +56,7 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
 
     override fun onStart() {
         super.onStart()
-        binding.name.text = viewModel.followedName.toString()
-        binding.xVal.text = viewModel.followedX.toString()
-        binding.yVal.text = viewModel.followedY.toString()
+
         binding.delete.setOnClickListener {
             val delete = UniversalDialog(
                 title = "Confirm Deletion",
@@ -63,7 +68,7 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
             delete.show(childFragmentManager,"FOLLOW_DELETE")
         }
         binding.closeButton.setOnClickListener {
-            parentFragmentManager.beginTransaction().remove(this).commit()
+            parentFragmentManager.popBackStack()
         }
 
     }
@@ -71,7 +76,7 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         viewModel.unfollow()
         viewModel.delete(listOf(uuid))
-        parentFragmentManager.beginTransaction().remove(this).commit()
+        parentFragmentManager.popBackStack()
     }
 
     override fun onDialogNeutralClick(dialog: DialogFragment) {

@@ -160,7 +160,6 @@ class CreateActivity : AppCompatActivity() {
 
         binding.create.setOnClickListener {
             viewModel.create(viewModel.zygote)
-            viewModel.syncInator()
             onBackPressedDispatcher.onBackPressed()
         }
     }
