@@ -14,7 +14,6 @@ class Repository  private constructor(context: Context) {
             context.applicationContext,
             EuclydiaDatabase::class.java,
             "euclydia")
-        .createFromAsset("euclydia.db")
         .build()
 
     companion object {
