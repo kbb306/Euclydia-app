@@ -76,9 +76,16 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        TODO("Use callback functions and a listener attribute in Shape to make clicking a shape trigger the follow fragment")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.shapeList.collect { shapes ->
+                    binding.planeView.submit(shapes)
+                }
+            }
+        }
     }
 }
 
