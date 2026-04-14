@@ -58,7 +58,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     val followedUUID: StateFlow<UUID?> = _followedUUID.asStateFlow()
     val followedShape : Shape?
         get() = followedUUID.let { uuid ->
-            shapeList.value.firstOrNull {it.uuid == uuid}
+            shapeList.value.firstOrNull {it.uuid == _followedUUID.value}
         }
     val followedX : Double?
         get() = followedShape?.x
@@ -74,7 +74,6 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     val select_ids = mutableSetOf<UUID>()
 
 
-    @OptIn(InternalSerializationApi::class)
     var zygote : DNA = DNA( // Create fragment will modify this and send it to create()
         UUID.randomUUID(),
         "Bill",
@@ -83,8 +82,8 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         Color.YELLOW,
         3,
         3.33,
-        Random.nextDouble(),
-        Random.nextDouble(),
+        500.0,
+        300.0,
         90.00,
         5.00,
         SpecialVoice.BILL
@@ -93,21 +92,16 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
 
     // Import/Export and dependencies
-    fun create(name : String, age: Age, gender: Gender, color : Int, sides : Int, // Raw data create(), may be deprecated soon?
-              length : Double, x : Double, y : Double, heading : Double, speed :
-               Double, ) {
-        val newShape  = Shape(name,age,gender,color,sides,length,x,y,heading,speed)
 
-    }
 
-    @OptIn(InternalSerializationApi::class)
-    fun create(dna: DNA) { // used for import() and possibly standard shape creation
+    fun create(dna: DNA) {
+        dna.uuid = UUID.randomUUID()// used for import() and standard shape creation
         val newShape = Shape(dna)
         ShapeStore.addShape(newShape)
     }
 
 
-    fun legacyImport(context : Context, path: String) {
+    fun legacyImport(context : Context, path: String) { //For loading Euclydia3.0 save files if I can figure out how to open them
         val loaded = mutableListOf<Shape>()
         csvReader().open(context.openFileInput(path)) {
             readAllAsSequence().forEach { row ->
@@ -209,7 +203,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     fun startLoop() {
         if (loopJob?.isActive == true) return
-
+        if (loopJob != null) return
         loopJob = viewModelScope.launch {
             while (isActive) {
                 step()
@@ -244,7 +238,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     fun load() {
         viewModelScope.launch {
-            val first = savedShapes.first()
+            val first = repo.shapeList.first()
             ShapeStore.setShapes(first)
         }
     }

@@ -46,6 +46,10 @@ enum class SpecialVoice {
 
     ) : Turtle(name, x, y, heading, speed, color) {
 
+        companion object {
+            const val CM = 50.0
+        }
+
         constructor( // The "Primary" constructor
             name: String, age: Age, gender: Gender,
             color: Int, sides: Int, length: Double,
@@ -54,17 +58,16 @@ enum class SpecialVoice {
         ) : this(
             UUID.randomUUID(), name, age,
             gender, color, sides,
-            length, x, y,
+            length*CM, x, y,
             heading, speed, canon
         )
 
-        @OptIn(InternalSerializationApi::class)
         constructor( // For import
             genes: DNA
         ) : this(
             genes.uuid, genes.name, genes.age,
             genes.gender, genes.color, genes.sides,
-            genes.length, genes.x, genes.y,
+            genes.length * CM, genes.x, genes.y,
             genes.heading, genes.speed, genes.canon
         )
 
@@ -166,7 +169,7 @@ enum class SpecialVoice {
             return DNA(
                 uuid, name, age,
                 gender, color, sides,
-                length, x, y,
+                length/CM, x, y,
                 heading, speed, canon
             )
         }

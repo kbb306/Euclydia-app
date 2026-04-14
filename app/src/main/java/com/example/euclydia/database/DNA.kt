@@ -15,7 +15,7 @@ import java.util.UUID
 @Entity(tableName = "Shapes")
 data class DNA (
     @Contextual
-    @PrimaryKey val uuid: UUID,
+    @PrimaryKey var uuid: UUID,
     var name: String,
     var age: Age,
     var gender: Gender,

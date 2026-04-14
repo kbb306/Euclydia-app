@@ -56,15 +56,8 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
     private lateinit var listener : Plane.Tracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val plane : Plane = Plane(context)
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.shapeList.collect { shapelist ->
-                    plane.submit(shapelist)
-                }
-            }
-        }
+
     }
 
     override fun onCreateView(
@@ -86,6 +79,16 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.startLoop()
+    }
+
+    override fun onDestroy() {
+        viewModel.stopLoop()
+        super.onDestroy()
     }
 }
 

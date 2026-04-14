@@ -138,7 +138,7 @@ class CreateActivity : AppCompatActivity() {
 
         binding.lengthfield.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
-                viewModel.zygote.length = p0.toString().toDoubleOrNull() ?: 3.33
+                viewModel.zygote.length = (p0.toString().toDoubleOrNull() ?: 3.33)
             }
 
             override fun beforeTextChanged(
