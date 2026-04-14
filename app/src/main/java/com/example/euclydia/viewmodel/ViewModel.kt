@@ -23,13 +23,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.random.Random
+import kotlinx.coroutines.flow.combine
 
 
 data class LineLogEntry(
+    val uuid: UUID,
     val name: String,
     val line: String,
     val tick: Long
@@ -49,7 +52,8 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
     private var microphone = Speech(viewModelScope,application)
-    private var followedUUID : UUID? = null
+    private val _followedUUID = MutableStateFlow<UUID?>(null)
+    val followedUUID: StateFlow<UUID?> = _followedUUID.asStateFlow()
     val followedShape : Shape?
         get() = followedUUID?.let { uuid ->
             _shapes.value.firstOrNull {it.uuid == uuid}
@@ -62,6 +66,8 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     val followedName : String?
         get() = followedShape?.name
+
+
 
     val select_ids = mutableSetOf<UUID>()
 
@@ -145,14 +151,14 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }}
 
     fun follow(uuid : UUID) {
-        followedUUID = uuid
+        _followedUUID.value = uuid
         _shapes.value.forEach { shape ->
             shape.isFollowed = (shape.uuid == uuid)
         }
     }
 
     fun unfollow() {
-        followedUUID = null
+        _followedUUID.value = null
     }
 
     var worldWidth : Double = 10000.00
@@ -180,12 +186,22 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     private val _lineLog  = MutableStateFlow<List<LineLogEntry>>(emptyList())
     val lineLog: StateFlow<List<LineLogEntry>> = _lineLog.asStateFlow()
     @OptIn(InternalSerializationApi::class)
-
     fun moreInfo(uuid : UUID): DNA {
         return (_shapes.value.filter { it.uuid == uuid}).first().export()
     }
 
-
+    val followedLineLog: StateFlow<List<LineLogEntry>> =
+        combine(_lineLog, _followedUUID) { log, uuid ->
+            if (uuid == null) {
+                emptyList()
+            } else {
+                log.filter { it.uuid == uuid }
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     // Animation starts here
 
@@ -215,6 +231,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             val request = shape.say()
             if (request != null) {
                 _lineLog.value += LineLogEntry(
+                    uuid = shape.uuid,
                     request.speakerName,
                     microphone.speak(request),
                     _tick.value
