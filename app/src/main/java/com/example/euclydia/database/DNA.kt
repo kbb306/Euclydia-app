@@ -11,7 +11,6 @@ import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
-@InternalSerializationApi
 @Serializable
 @Entity(tableName = "Shapes")
 data class DNA (
