@@ -12,7 +12,9 @@
     <string name="childlabel">Child</string>
     <string name="adultlabel">Adult</string>
     <string name="genderlabel">\'Gender\'</string>
+    <string name="malelabel">Male</string>
     <string name="femalelabel">Female</string>
+    >
     <string name="colorlabel">Color</string>
     <string name="x">X:</string>
     <string name="y">Y:</string>
@@ -20,4 +22,5 @@
     <string name="shape_n_list">Shape \n List</string>
     <string name="importbutton">Import</string>
     <string name="exportbutton">Export</string>
+    <string name="nblabel">N/A</string>
 </resources>

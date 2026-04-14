@@ -18,11 +18,11 @@ import java.util.UUID
 data class DNA (
     @Contextual
     @PrimaryKey val uuid: UUID,
-    val name: String,
-    val age: Age,
-    val gender: Gender,
-    val color: Int,
-    val sides: Int,
+    var name: String,
+    var age: Age,
+    var gender: Gender,
+    var color: Int,
+    var sides: Int,
     val length: Double,
     val x: Double,
     val y: Double,

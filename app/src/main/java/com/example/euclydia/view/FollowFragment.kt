@@ -7,13 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.euclydia.databinding.FollowFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
+import com.example.euclydia.viewmodel.LineAdapter
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalListener {
     private lateinit var binding : FollowFragmentBinding
     private val viewModel : EuclydiaViewModel by activityViewModels()
+    private val adapter = LineAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +33,18 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
     ): View? {
         binding = FollowFragmentBinding.inflate(layoutInflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lineview.adapter = adapter
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.followedLineLog.collect { lines ->
+                    adapter.submitLines(lines)
+                }
+            }
+        }
     }
 
     override fun onStart() {

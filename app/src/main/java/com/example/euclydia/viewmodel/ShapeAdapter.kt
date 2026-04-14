@@ -19,7 +19,7 @@ class ShapeAdapter(private var shapelist : List<Shape>,
 
     fun updateShapes(newShapes: List<Shape>) {
         shapelist = newShapes
-        notifyDataSetChanged()
+        notifyDataSetChanged() // fix this.
     }
 
     override fun onCreateViewHolder(parent : ViewGroup, viewType: Int): ShapeListViewHolder {
