@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import com.example.euclydia.R
 import com.example.euclydia.databinding.ActivityMainBinding
+import com.example.euclydia.viewmodel.EuclydiaViewModel
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Plane.Tracker {
     private lateinit var binding: ActivityMainBinding
     val fragMan = supportFragmentManager
+    private val viewModel : EuclydiaViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
 
         if (savedInstanceState == null) {
+            viewModel.load()
             supportFragmentManager.beginTransaction()
                 .replace(binding.plane.id, PlaneFragment())
                 .commit()

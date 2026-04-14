@@ -30,6 +30,7 @@ import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.random.Random
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.forEach
 
 
@@ -239,6 +240,13 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             }
         }
         _tick.value += 1
+    }
+
+    fun load() {
+        viewModelScope.launch {
+            val first = savedShapes.first()
+            ShapeStore.setShapes(first)
+        }
     }
 
 }
