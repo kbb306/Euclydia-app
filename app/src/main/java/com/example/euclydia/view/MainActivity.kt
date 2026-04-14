@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        fragMan.beginTransaction()
+            .replace(binding.plane.id, PlaneFragment())
+            .commit()
         val id = intent.getSerializableExtra("ID", UUID::class.java)
         if (id != null) { // This should be null when activity is first started.
             val fragment = FollowFragment(id)
