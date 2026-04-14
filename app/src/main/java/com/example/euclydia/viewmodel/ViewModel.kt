@@ -11,6 +11,7 @@ import com.example.euclydia.database.Repository
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.Shape
 import com.example.euclydia.model.ShapeJson
+import com.example.euclydia.model.ShapeStore
 import com.example.euclydia.model.SpecialVoice
 import com.example.euclydia.model.Speech
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
@@ -29,6 +30,7 @@ import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
 import kotlin.random.Random
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.forEach
 
 
 data class LineLogEntry(
@@ -39,9 +41,8 @@ data class LineLogEntry(
 )
 
 class EuclydiaViewModel(application: Application) : AndroidViewModel(application) {
-    private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
     private val repo = Repository.get()
-    val shapeList : StateFlow<List<Shape>> = _shapes.asStateFlow()
+    val shapeList = ShapeStore.shapes
     val savedShapes: StateFlow<List<Shape>> =
         repo.shapeList.stateIn(
             scope = viewModelScope,
@@ -55,8 +56,8 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     private val _followedUUID = MutableStateFlow<UUID?>(null)
     val followedUUID: StateFlow<UUID?> = _followedUUID.asStateFlow()
     val followedShape : Shape?
-        get() = followedUUID?.let { uuid ->
-            _shapes.value.firstOrNull {it.uuid == uuid}
+        get() = followedUUID.let { uuid ->
+            shapeList.value.firstOrNull {it.uuid == uuid}
         }
     val followedX : Double?
         get() = followedShape?.x
@@ -95,13 +96,13 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
               length : Double, x : Double, y : Double, heading : Double, speed :
                Double, ) {
         val newShape  = Shape(name,age,gender,color,sides,length,x,y,heading,speed)
-        _shapes.value += newShape
+
     }
 
     @OptIn(InternalSerializationApi::class)
     fun create(dna: DNA) { // used for import() and possibly standard shape creation
         val newShape = Shape(dna)
-        _shapes.value += newShape
+        ShapeStore.addShape(newShape)
     }
 
 
@@ -112,30 +113,30 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
                 loaded.add(Shape(row as List<Any>))
             }
         }
-        _shapes.value += loaded
+        ShapeStore.addShapes(loaded)
     }
 
     fun import(context : Context,path: String) {
         val cryofreeze = context.openFileInput(path)
             .bufferedReader().use { it.readText() }
-        _shapes.value += ShapeJson.decodeShapes(cryofreeze)
+        ShapeStore.addShapes(ShapeJson.decodeShapes(cryofreeze))
     }
 
     fun export(context: Context, path: String) {
-        val cryofreeze = ShapeJson.encodeShapes(_shapes.value)
+        val cryofreeze = ShapeJson.encodeShapes(shapeList.value)
         context.openFileOutput(path, Context.MODE_PRIVATE).use { it.write(cryofreeze.toByteArray()) }
     }
 
     fun delete(UUIDs : List<UUID>) {
-        _shapes.value = _shapes.value.filter { it.uuid !in UUIDs }
+        ShapeStore.removeShapes(UUIDs)
     }
 
     fun follow(shape: Shape) {
         follow(shape.uuid)
     }
 
-    fun collisionCheck(shape: Shape) {
-        val mightCollide = _shapes.value.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
+    fun collisionCheck(shape: Shape, current : List<Shape>) {
+        val mightCollide = current.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
         if (!mightCollide.isEmpty()) {
             shape.back(.45)
             var safe = false
@@ -152,7 +153,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     fun follow(uuid : UUID) {
         _followedUUID.value = uuid
-        _shapes.value.forEach { shape ->
+        shapeList.value.forEach { shape ->
             shape.isFollowed = (shape.uuid == uuid)
         }
     }
@@ -177,7 +178,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     fun syncInator() {
         viewModelScope.launch {
             repo.clear()
-            repo.insertShapes(_shapes.value)
+            repo.insertShapes(shapeList.value)
         }
     }
 
@@ -186,9 +187,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     private val _lineLog  = MutableStateFlow<List<LineLogEntry>>(emptyList())
     val lineLog: StateFlow<List<LineLogEntry>> = _lineLog.asStateFlow()
     @OptIn(InternalSerializationApi::class)
-    fun moreInfo(uuid : UUID): DNA {
-        return (_shapes.value.filter { it.uuid == uuid}).first().export()
-    }
+
 
     val followedLineLog: StateFlow<List<LineLogEntry>> =
         combine(_lineLog, _followedUUID) { log, uuid ->
@@ -224,24 +223,22 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun step() {
-        val current = _shapes.value.toMutableList()
-
-        for(shape in current) {
-            shape.update(worldHeight,worldWidth)
-            val request = shape.say()
-            if (request != null) {
-                _lineLog.value += LineLogEntry(
-                    uuid = shape.uuid,
-                    request.speakerName,
-                    microphone.speak(request),
-                    _tick.value
-                )
+        ShapeStore.mutate { current ->
+            for (shape in current) {
+                shape.update(worldHeight, worldWidth)
+                val request = shape.say()
+                if (request != null) {
+                    _lineLog.value += LineLogEntry(
+                        uuid = shape.uuid,
+                        request.speakerName,
+                        microphone.speak(request),
+                        _tick.value
+                    )
+                }
+                collisionCheck(shape, current)
             }
-            collisionCheck(shape)
         }
-        _shapes.value = current.toList()
         _tick.value += 1
     }
-
 
 }
