@@ -43,11 +43,11 @@
         android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="164dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/gendergroup"
+        app:layout_constraintTop_toTopOf="@id/gendergroup" />
 
     <TextView
         android:id="@+id/nameLabel"
@@ -64,13 +64,16 @@
         android:id="@+id/sideField"
         android:layout_width="103dp"
         android:layout_height="46dp"
-        android:layout_marginTop="100dp"
         android:ems="2"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameField" />
+        app:layout_constraintTop_toBottomOf="@id/gendergroup"
+        app:layout_constraintBottom_toTopOf="@id/agegroup"
+        app:layout_constraintStart_toStartOf="@id/gendergroup"
+        app:layout_constraintEnd_toEndOf="@id/gendergroup"
+      />
 
     <TextView
+        android:id="@+id/sidelabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -79,114 +82,74 @@
         app:layout_constraintStart_toStartOf="@+id/sideField"
         app:layout_constraintTop_toBottomOf="@+id/sideField" />
 
-    <RadioButton
-        android:id="@+id/age1"
+    <RadioGroup
+        android:id="@+id/agegroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        app:layout_constraintBottom_toBottomOf="@+id/nameField"
-        app:layout_constraintStart_toEndOf="@+id/nameField"
-        app:layout_constraintTop_toTopOf="@+id/nameField" />
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="300dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/gendergroup"
+        app:layout_constraintEnd_toEndOf="@id/gendergroup"
+        app:layout_constraintTop_toBottomOf="@id/gendergroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/adultlabel"
-        app:layout_constraintEnd_toEndOf="@+id/age1"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/age1"
-        app:layout_constraintTop_toBottomOf="@+id/age1" />
+        <RadioButton
+            android:id="@+id/adult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adultlabel" />
+        <RadioButton
+            android:id="@+id/child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/childlabel"/>
 
-    <RadioButton
-        android:id="@+id/age2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        app:layout_constraintStart_toEndOf="@+id/age1"
-        app:layout_constraintTop_toTopOf="@+id/age1" />
+    </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView2"
+    <RadioGroup
+        android:id="@+id/gendergroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/childlabel"
-        app:layout_constraintEnd_toEndOf="@+id/age2"
-        app:layout_constraintStart_toStartOf="@+id/age2"
-        app:layout_constraintTop_toBottomOf="@+id/age2" />
+        android:orientation="horizontal"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="@id/title3"
+        app:layout_constraintStart_toStartOf="@id/title3"
+        app:layout_constraintTop_toBottomOf="@id/title3">
 
-    <TextView
-        android:id="@+id/genderLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/genderlabel"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/female"
-        app:layout_constraintEnd_toEndOf="@+id/female"
-        app:layout_constraintStart_toStartOf="@+id/female" />
 
-    <RadioButton
-        android:id="@+id/female"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        app:layout_constraintStart_toEndOf="@+id/male"
-        app:layout_constraintTop_toTopOf="@+id/male" />
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/malelabel" />
 
-    <TextView
-        android:id="@+id/femalelabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/femalelabel"
-        app:layout_constraintEnd_toEndOf="@+id/female"
-        app:layout_constraintStart_toStartOf="@+id/female"
-        app:layout_constraintTop_toBottomOf="@+id/female" />
+        <RadioButton
+            android:id="@+id/nb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nblabel" />
 
-    <RadioButton
-        android:id="@+id/male"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="83dp"
-        app:layout_constraintStart_toEndOf="@+id/sideField"
-        app:layout_constraintTop_toTopOf="@+id/sideField" />
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/femalelabel" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        app:layout_constraintEnd_toEndOf="@+id/male"
-        app:layout_constraintStart_toStartOf="@+id/male"
-        app:layout_constraintTop_toBottomOf="@+id/male" />
 
-    <RadioButton
-        android:id="@+id/nb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        app:layout_constraintStart_toEndOf="@+id/female"
-        app:layout_constraintTop_toTopOf="@+id/female" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="N/A"
-        app:layout_constraintEnd_toEndOf="@+id/nb"
-        app:layout_constraintStart_toStartOf="@+id/nb"
-        app:layout_constraintTop_toBottomOf="@+id/nb" />
+    </RadioGroup>
 
     <Spinner
         android:id="@+id/color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@id/gendergroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.546"
-        app:layout_constraintStart_toEndOf="@+id/age2"
-        app:layout_constraintTop_toTopOf="@+id/age2" />
+        app:layout_constraintTop_toTopOf="@id/gendergroup"
+        app:layout_constraintBottom_toBottomOf="@id/gendergroup"
+        tools:layout_editor_absoluteY="181dp"
+        app:layout_constraintHorizontal_bias=".5"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -198,16 +161,22 @@
         app:layout_constraintStart_toStartOf="@+id/color" />
 
     <com.google.android.material.button.MaterialButton
+        style="@style/YellowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
         android:layout_marginBottom="16dp"
         android:text="@string/create"
-        style="@style/YellowButton"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias=".8"
+        app:layout_constraintStart_toStartOf="@id/agegroup"
+        app:layout_constraintTop_toBottomOf="@id/agegroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/nb"
+        app:layout_constraintVertical_bias="1.0"
         app:strokeWidth="3dp" />
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
