@@ -22,6 +22,8 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
     private val viewModel: EuclydiaViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ListActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val adapter = ShapeAdapter(
             emptyList(),
@@ -38,6 +40,8 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                 startActivity(followCall)
             }
         )
+
+
 
         binding.listView.layoutManager = LinearLayoutManager(this)
 
