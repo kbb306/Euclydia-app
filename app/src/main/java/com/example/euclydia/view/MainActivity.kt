@@ -12,6 +12,7 @@ import androidx.fragment.app.commit
 import com.example.euclydia.R
 import com.example.euclydia.databinding.ActivityMainBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
+import com.example.euclydia.viewmodel.SoundOption
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Plane.Tracker {
@@ -48,6 +49,13 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
                 supportFragmentManager.beginTransaction()
                     .replace(binding.bottom.id, ControlFragment())
                     .commit()
+            }
+        }
+        
+        binding.mute.setOnCheckedChangeListener { _, ismuted ->
+            when(ismuted) {
+                true -> SoundOption.on()
+                else -> SoundOption.off()
             }
         }
     }

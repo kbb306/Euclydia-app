@@ -24,4 +24,5 @@
     <string name="exportbutton">Export</string>
     <string name="nblabel">N/A</string>
     <string name="lengthlabel">Side Length</string>
+    <string name="mute">mute</string>
 </resources>
