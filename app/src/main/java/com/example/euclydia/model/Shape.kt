@@ -47,6 +47,9 @@ enum class SpecialVoice {
 
     ) : Turtle(name, x, y, heading, speed, color) {
 
+        var nextSpeechTick: Long = 0
+
+
         companion object {
             const val CM = 50.0
         }
@@ -154,6 +157,7 @@ enum class SpecialVoice {
             val gender: Gender,
             val canon: SpecialVoice?
         )
+
 
         fun say(): SpeechRequest? {
             if ((0..1000).random() < 1) {

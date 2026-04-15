@@ -32,6 +32,7 @@ import kotlin.random.Random
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.update
 
 
 data class LineLogEntry(
@@ -221,14 +222,19 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         ShapeStore.mutate { current ->
             for (shape in current) {
                 shape.update(worldHeight, worldWidth)
-                val request = shape.say()
-                if (request != null) {
-                    _lineLog.value += LineLogEntry(
-                        uuid = shape.uuid,
-                        request.speakerName,
-                        microphone.speak(request),
-                        _tick.value
-                    )
+                if (_tick.value >= shape.nextSpeechTick) {
+                    val request = shape.say()
+                    if (request != null) {
+                        _lineLog.update { old ->
+                            (old + LineLogEntry(
+                                uuid = shape.uuid,
+                                request.speakerName,
+                                microphone.speak(request),
+                                _tick.value
+                            )
+                                    ).takeLast(200)
+                        }
+                    }
                 }
                 collisionCheck(shape, current)
             }
