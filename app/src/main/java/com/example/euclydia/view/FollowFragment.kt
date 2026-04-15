@@ -15,6 +15,7 @@ import com.example.euclydia.viewmodel.EuclydiaViewModel
 import com.example.euclydia.viewmodel.LineAdapter
 import kotlinx.coroutines.launch
 import java.util.UUID
+import java.util.Locale
 
 class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalListener {
     private lateinit var binding : FollowFragmentBinding
@@ -42,8 +43,13 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
                     binding.name.text = viewModel.followedName ?: ""
-                    binding.xVal.text = viewModel.followedX?.toString()?.format("%2f") ?: ""
-                    binding.yVal.text = viewModel.followedY?.toString()?.format("%2f") ?: ""
+                    binding.xVal.text = viewModel.followedX?.let {
+                        String.format(Locale.US,"%.2f", it)
+                    } ?: ""
+
+                    binding.yVal.text = viewModel.followedY?.let {
+                        String.format(Locale.US,"%.2f", it)
+                    } ?: ""
                 }
             }
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
