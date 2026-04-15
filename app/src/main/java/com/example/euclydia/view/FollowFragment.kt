@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.euclydia.R
 import com.example.euclydia.databinding.FollowFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import com.example.euclydia.viewmodel.LineAdapter
@@ -73,7 +74,7 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
 
         binding.closeButton.setOnClickListener {
             viewModel.unfollow()
-            parentFragmentManager.popBackStack()
+            parentFragmentManager.beginTransaction().replace(R.id.bottom, ControlFragment()).commit()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -104,7 +105,7 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
         val id = followedUuid ?: return
         viewModel.unfollow()
         viewModel.delete(listOf(id))
-        parentFragmentManager.popBackStack()
+        parentFragmentManager.beginTransaction().replace(R.id.bottom, ControlFragment()).commit()
     }
 
     override fun onDialogNeutralClick(dialog: DialogFragment) {
