@@ -20,10 +20,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
+        style="@style/Widget.Material3.Button.IconButton"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:drawableStart="@drawable/ic_back"
+        app:iconTint="@color/black"
+        app:icon="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,10 +41,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delete"
+        style="@style/Widget.Material3.Button.IconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:drawableStart="@drawable/ic_delete"
+        app:iconTint="@color/red"
+        app:icon="@drawable/ic_delete"
         tools:layout_editor_absoluteX="323dp"
         tools:layout_editor_absoluteY="52dp"
         app:layout_constraintStart_toStartOf="@id/selall"
