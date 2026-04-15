@@ -26,7 +26,7 @@ data class DNA (
     val y: Double,
     val heading: Double,
     val speed: Double,
-    val canon: SpecialVoice?
+    var canon: SpecialVoice?
 )
 class Polymerase {
     @TypeConverter

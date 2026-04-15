@@ -167,6 +167,7 @@ class CreateActivity : AppCompatActivity() {
         })
 
         binding.create.setOnClickListener {
+            viewModel.zygote.canon = null
             viewModel.create(viewModel.zygote)
             onBackPressedDispatcher.onBackPressed()
         }
