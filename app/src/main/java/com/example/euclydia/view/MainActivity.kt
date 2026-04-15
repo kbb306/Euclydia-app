@@ -34,9 +34,11 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
 
         if (savedInstanceState == null) {
+            val frag = PlaneFragment()
+            frag.setListener(this)
             viewModel.load()
             supportFragmentManager.beginTransaction()
-                .replace(binding.plane.id, PlaneFragment())
+                .replace(binding.plane.id, frag)
                 .commit()
 
             val id = intent.getSerializableExtra("ID", UUID::class.java)
@@ -61,7 +63,9 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
     }
 
     override fun onSelect(uuid: UUID) {
-
+        fragMan.beginTransaction().replace(binding.bottom.id,
+            FollowFragment.newInstance(uuid))
+            .commit()
     }
 
     companion object {

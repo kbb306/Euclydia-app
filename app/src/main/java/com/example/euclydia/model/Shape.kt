@@ -143,9 +143,9 @@ enum class SpecialVoice {
             if (isFollowed) {
                 val box = RectF(
                     (x - cameraX - radius - 12.0).toFloat(),
-                    (y - cameraY - radius - 12.0).toFloat(),
+                    (y + cameraY - radius - 12.0).toFloat(),
                     (x + cameraX + radius + 12.0).toFloat(),
-                    (y + cameraY + radius + 12.0).toFloat()
+                    (y - cameraY + radius + 12.0).toFloat()
                 )
                 canvas.drawRect(box, paint)
             }

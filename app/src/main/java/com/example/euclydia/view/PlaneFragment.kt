@@ -1,5 +1,6 @@
 package com.example.euclydia.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -7,6 +8,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -33,6 +35,8 @@ class Plane @JvmOverloads constructor(
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var shapes : List<Shape> = emptyList()
 
+    private lateinit var listener : Tracker
+
     fun submit(newShapes: List<Shape>) {
         shapes = newShapes
         invalidate()
@@ -46,10 +50,21 @@ class Plane @JvmOverloads constructor(
             shape.draw(canvas,paint,0.0,0.0)
         }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        shapes.forEach { shape ->
+            if((event.x <= shape.x + shape.radius && event.x <= shape.x - shape.radius) &&
+                (event.y <= shape.y + shape.radius && event.y <= shape.y - shape.radius)) {
+                listener.onSelect(shape.uuid) // Fires if click is within shape.radius on all sides
+            }
+        }
+        return true
+    }
 }
 
 
-class PlaneFragment : androidx.fragment.app.Fragment() {
+class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private lateinit var binding: PlaneFragmentBinding
 
@@ -91,6 +106,12 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         viewModel.stopLoop()
     }
 
+    override fun onSelect(uuid: UUID) {
+        listener.onSelect(uuid)
+    }
 
+    fun setListener(listener : Plane.Tracker) {
+        this.listener = listener
+    }
 }
 
