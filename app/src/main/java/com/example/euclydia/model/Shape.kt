@@ -92,7 +92,7 @@ enum class SpecialVoice {
             if (Random.nextDouble() < 0.05) {
                 turnTo(heading + randomTurn)
             }
-            forward(3.00)
+            forward(1.00)
         }
 
         fun avoid(other: Shape): Double { // Calculate a safe heading away from the other shape
