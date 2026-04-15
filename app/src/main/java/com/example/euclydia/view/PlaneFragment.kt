@@ -86,6 +86,11 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         viewModel.startLoop()
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopLoop()
+    }
+
 
 }
 
