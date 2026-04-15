@@ -5,6 +5,7 @@ import br.com.chatnoir.ggwave_kotlin.GGWaveCodec
 import br.com.chatnoir.ggwave_kotlin.GGWaveSampleFormat
 import com.example.euclydia.R
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -109,13 +110,15 @@ class Speech (
     }
 
 
-    fun speak(request: Shape.SpeechRequest): String {
-        val line = context.resources.getStringArray(arrayFor(request.age,request.canon)).random()
-        scope.launch {
-            val codec : GGWaveCodec ?= codecFor(request.age,request.gender,request.canon)
-            delay((1000..6000).random().toLong())
-            codec?.encodeAndPlay(line)
-    }
-        return line
-    }
+     fun speak(request: Shape.SpeechRequest): String {
+         val line = context.resources.getStringArray(arrayFor(request.age, request.canon)).random()
+
+         scope.launch(Dispatchers.Default) {
+             val codec = codecFor(request.age, request.gender, request.canon)
+             delay((1000..6000).random().toLong())
+             codec?.encodeAndPlay(line)
+         }
+
+         return line
+     }
 }
