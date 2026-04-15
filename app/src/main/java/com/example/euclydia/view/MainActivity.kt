@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
             val id = intent.getSerializableExtra("ID", UUID::class.java)
             if (id != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(binding.bottom.id, FollowFragment(id))
+                    .replace(binding.bottom.id, FollowFragment.newInstance(id))
                     .addToBackStack(null)
                     .commit()
             } else {

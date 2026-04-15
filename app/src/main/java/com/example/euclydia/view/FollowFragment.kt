@@ -1,5 +1,6 @@
 package com.example.euclydia.view
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,46 +16,81 @@ import com.example.euclydia.databinding.FollowFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import com.example.euclydia.viewmodel.LineAdapter
 import kotlinx.coroutines.launch
-import java.util.UUID
 import java.util.Locale
+import java.util.UUID
 
-class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalListener {
-    private lateinit var binding : FollowFragmentBinding
-    private val viewModel : EuclydiaViewModel by activityViewModels()
+class FollowFragment : Fragment(), UniversalDialog.universalListener {
+    companion object {
+        private const val ARG_UUID = "uuid"
+
+        fun newInstance(uuid: UUID): FollowFragment {
+            return FollowFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable(ARG_UUID, uuid)
+                }
+            }
+        }
+    }
+
+    private lateinit var binding: FollowFragmentBinding
+    private val viewModel: EuclydiaViewModel by activityViewModels()
     private val adapter = LineAdapter()
+
+    private val followedUuid: UUID? by lazy {
+        arguments?.getSerializable(ARG_UUID, UUID::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.follow(uuid)
+        followedUuid?.let(viewModel::follow)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FollowFragmentBinding.inflate(layoutInflater,container,false)
+    ): View {
+        binding = FollowFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.lineview.layoutManager = LinearLayoutManager(requireContext())
         binding.lineview.adapter = adapter
+
+        binding.delete.setOnClickListener {
+            val delete = UniversalDialog(
+                title = "Confirm Deletion",
+                message = "Are you sure you want to delete the selected shape?",
+                positive = "Yes",
+                negative = "No",
+                neutral = null
+            )
+            delete.show(childFragmentManager, "FOLLOW_DELETE")
+        }
+
+        binding.closeButton.setOnClickListener {
+            viewModel.unfollow()
+            parentFragmentManager.popBackStack()
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
                     binding.name.text = viewModel.followedName ?: ""
                     binding.xValue.text = viewModel.followedX?.let {
-                        String.format(Locale.US,"%.2f", it)
+                        String.format(Locale.US, "%.2f", it)
                     } ?: ""
 
                     binding.yValue.text = viewModel.followedY?.let {
-                        String.format(Locale.US,"%.2f", it)
+                        String.format(Locale.US, "%.2f", it)
                     } ?: ""
                 }
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.followedLineLog.collect { lines ->
@@ -64,35 +100,13 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        binding.delete.setOnClickListener {
-            val delete = UniversalDialog(
-                title = "Confirm Deletion",
-                message = "Are you sure you want to delete the selected shapes?",
-                positive = "Yes",
-                negative = "No",
-                neutral = null
-            )
-            delete.show(childFragmentManager,"FOLLOW_DELETE")
-        }
-        binding.closeButton.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-
-    }
-
     override fun onDialogPositiveClick(dialog: DialogFragment) {
+        val id = followedUuid ?: return
         viewModel.unfollow()
-        viewModel.delete(listOf(uuid))
+        viewModel.delete(listOf(id))
         parentFragmentManager.popBackStack()
     }
 
     override fun onDialogNeutralClick(dialog: DialogFragment) {
-        // N/A
     }
-
-
-
-} // Still not actually universal
+}
