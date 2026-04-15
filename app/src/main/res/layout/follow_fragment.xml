@@ -89,7 +89,7 @@
         android:layout_width="344dp"
         android:layout_height="76dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/bottom" />
+        app:layout_constraintTop_toBottomOf="@id/bottom" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/delete"
