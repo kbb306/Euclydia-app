@@ -33,24 +33,32 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
             insets
         }
 
-        val adapter = ShapeAdapter(
-            emptyList(),
-            viewModel.select_ids,
-            onCheckedChange = { shape, isChecked ->
-                if (isChecked) {
-                    viewModel.select_ids.add(shape.uuid)
-                } else {
-                    viewModel.select_ids.remove(shape.uuid)
+        fun createAdapter(): ShapeAdapter {
+            val adapter = ShapeAdapter(
+                emptyList(),
+                viewModel.select_ids,
+                onCheckedChange = { shape, isChecked ->
+                    if (isChecked) {
+                        viewModel.select_ids.add(shape.uuid)
+                    } else {
+                        viewModel.select_ids.remove(shape.uuid)
+                    }
+                },
+                onFollowClick = { uuid ->
+                    val followCall = MainActivity.createIntent(this,uuid)
+                    startActivity(followCall)
                 }
-            },
-            onFollowClick = { uuid ->
-                val followCall = MainActivity.createIntent(this,uuid)
-                startActivity(followCall)
+            )
+            return adapter
+        }
+
+        fun setAllChecked() {
+            viewModel.select_ids.forEach { id ->
+
             }
-        )
+        }
 
-
-
+        var adapter = createAdapter()
         binding.listView.layoutManager = LinearLayoutManager(this)
 
 
@@ -65,7 +73,6 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                     val shapes = viewModel.shapeList
 
 
-                    binding.listView.adapter = adapter
                     binding.listView.layoutManager = LinearLayoutManager(
                         this
                     )
@@ -77,6 +84,9 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                         if (isChecked) {
                             viewModel.select_ids.clear()
                             viewModel.select_ids.addAll(shapes.value.map { it.uuid })
+                            adapter = createAdapter()
+                            binding.listView.adapter = adapter
+
                         } else {
                             viewModel.select_ids.clear()
                         }
