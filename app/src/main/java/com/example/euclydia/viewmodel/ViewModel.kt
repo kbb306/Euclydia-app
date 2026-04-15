@@ -207,7 +207,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         loopJob = viewModelScope.launch {
             while (isActive) {
                 step()
-                delay(16L)
+                delay(33L)
             }
         }
     }
