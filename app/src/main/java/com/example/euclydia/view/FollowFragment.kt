@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.euclydia.databinding.FollowFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import com.example.euclydia.viewmodel.LineAdapter
@@ -38,20 +39,23 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lineview.layoutManager = LinearLayoutManager(requireContext())
         binding.lineview.adapter = adapter
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
                     binding.name.text = viewModel.followedName ?: ""
-                    binding.xVal.text = viewModel.followedX?.let {
+                    binding.xValue.text = viewModel.followedX?.let {
                         String.format(Locale.US,"%.2f", it)
                     } ?: ""
 
-                    binding.yVal.text = viewModel.followedY?.let {
+                    binding.yValue.text = viewModel.followedY?.let {
                         String.format(Locale.US,"%.2f", it)
                     } ?: ""
                 }
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.followedLineLog.collect { lines ->
                     adapter.submitLines(lines)
