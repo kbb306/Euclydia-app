@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +26,12 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
         super.onCreate(savedInstanceState)
         binding = ListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.list) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         val adapter = ShapeAdapter(
             emptyList(),

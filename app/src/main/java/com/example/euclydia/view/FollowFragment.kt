@@ -42,8 +42,8 @@ class FollowFragment(val uuid : UUID) : Fragment(), UniversalDialog.universalLis
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
                     binding.name.text = viewModel.followedName ?: ""
-                    binding.xVal.text = viewModel.followedX?.toString() ?: ""
-                    binding.yVal.text = viewModel.followedY?.toString() ?: ""
+                    binding.xVal.text = viewModel.followedX?.toString()?.format("%2f") ?: ""
+                    binding.yVal.text = viewModel.followedY?.toString()?.format("%2f") ?: ""
                 }
             }
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

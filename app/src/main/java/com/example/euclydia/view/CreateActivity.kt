@@ -13,6 +13,8 @@ import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.euclydia.R
 import com.example.euclydia.databinding.CreateActivityBinding
 import com.example.euclydia.model.Age
@@ -45,6 +47,12 @@ class CreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = CreateActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.createmain) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         binding.nameField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
