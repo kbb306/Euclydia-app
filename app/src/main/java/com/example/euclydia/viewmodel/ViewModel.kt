@@ -132,20 +132,23 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun collisionCheck(shape: Shape, current : List<Shape>) {
-        val mightCollide = current.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
+        val mightCollide =
+            current.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius }
         if (!mightCollide.isEmpty()) {
-            shape.back(.45)
-            var safe = false
-            var newHeading = 0.00
-            while (!safe) {
-                for (each in mightCollide) {
-                    newHeading = shape.avoid(each)
-                    safe = (mightCollide.none { it.heading != newHeading })
-                }
+            var dx = 0.00
+            var dy = 0.00
+
+            for (other in mightCollide) {
+                dx += shape.x - other.x
+                dy += shape.y - other.y
             }
-            shape.turnTo(newHeading)
-            shape.forward(5.00)
-    }}
+            if (dx != 0.00 || dy != 0.00) {
+                shape.back(5.0)
+                shape.turnTo(Math.toDegrees(kotlin.math.atan2(dy,dx)))
+                shape.forward(5.0)
+            }
+        }
+    }
 
     fun follow(uuid : UUID) {
         _followedUUID.value = uuid
