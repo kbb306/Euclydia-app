@@ -37,6 +37,10 @@ class Plane @JvmOverloads constructor(
 
     private lateinit var listener : Tracker
 
+    fun setListener(listener : Tracker) {
+        this.listener = listener
+    }
+
     fun submit(newShapes: List<Shape>) {
         shapes = newShapes
         invalidate()
@@ -86,7 +90,7 @@ class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.planeView.setListener(this)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
