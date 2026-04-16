@@ -16,11 +16,11 @@ object SoundOption {
         _isMuted.value = !_isMuted.value
     }
 
-    fun on() {
+    fun mute() {
         _isMuted.value = true
     }
 
-    fun off() {
+    fun unmute() {
         _isMuted.value = false
     }
 }

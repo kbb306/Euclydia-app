@@ -56,8 +56,8 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         
         binding.mute.setOnCheckedChangeListener { _, ismuted ->
             when(ismuted) {
-                true -> SoundOption.on()
-                else -> SoundOption.off()
+                true -> SoundOption.mute()
+                else -> SoundOption.unmute()
             }
         }
     }
