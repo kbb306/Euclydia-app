@@ -59,6 +59,7 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
         }
 
         var adapter = createAdapter()
+        binding.listView.adapter = adapter
         binding.listView.layoutManager = LinearLayoutManager(this)
 
 
