@@ -58,8 +58,8 @@ class Plane @JvmOverloads constructor(
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         shapes.forEach { shape ->
-            if((event.x <= shape.x + shape.radius && event.x <= shape.x - shape.radius) &&
-                (event.y <= shape.y + shape.radius && event.y <= shape.y - shape.radius)) {
+            if((event.x <= shape.x + shape.radius && event.x >= shape.x - shape.radius) &&
+                (event.y <= shape.y + shape.radius && event.y >= shape.y - shape.radius)) {
                 listener.onSelect(shape.uuid) // Fires if click is within shape.radius on all sides
             }
         }
