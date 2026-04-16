@@ -54,15 +54,24 @@ class Plane @JvmOverloads constructor(
             shape.draw(canvas,paint,0.0,0.0)
         }
     }
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        shapes.forEach { shape ->
-            if((event.x <= shape.x + shape.radius && event.x >= shape.x - shape.radius) &&
-                (event.y <= shape.y + shape.radius && event.y >= shape.y - shape.radius)) {
-                listener.onSelect(shape.uuid) // Fires if click is within shape.radius on all sides
+        if (event.action != MotionEvent.ACTION_DOWN) return true
+
+        val tapX = event.x.toDouble()
+        val tapY = event.y.toDouble()
+
+        for (shape in shapes.reversed()) {
+            val dx = tapX - shape.x
+            val dy = tapY - shape.y
+            val dist2 = dx * dx + dy * dy
+
+            if (dist2 <= shape.radius * shape.radius) {
+                listener.onSelect(shape.uuid)
+                return true
             }
         }
+
         return true
     }
 }
