@@ -1,6 +1,7 @@
 package com.example.euclydia.model
 import android.graphics.Paint
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Path
 import android.graphics.RectF
 import com.example.euclydia.database.DNA
@@ -147,6 +148,9 @@ enum class SpecialVoice {
                     (x + cameraX + radius + 12.0).toFloat(),
                     (y - cameraY + radius + 12.0).toFloat()
                 )
+                paint.style = Paint.Style.STROKE
+                paint.color = Color.GRAY
+                paint.strokeWidth = 4f
                 canvas.drawRect(box, paint)
             }
         }
