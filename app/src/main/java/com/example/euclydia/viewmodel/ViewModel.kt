@@ -225,7 +225,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         ShapeStore.mutate { current ->
             for (shape in current) {
                 shape.update(worldHeight, worldWidth)
-                if (SoundOption.isMuted.value && _tick.value >= shape.nextSpeechTick) {
+                if (_tick.value >= shape.nextSpeechTick) {
                     val request = shape.say()
                     if (request != null) {
                         _lineLog.update { old ->
