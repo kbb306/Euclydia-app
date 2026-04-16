@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
