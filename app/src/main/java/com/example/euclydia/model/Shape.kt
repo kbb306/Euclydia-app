@@ -164,7 +164,7 @@ enum class SpecialVoice {
 
 
         fun say(): SpeechRequest? {
-            if ((0..1000).random() < 1) {
+            if ((0..1000).random() < 10) {
                 val pass = SpeechRequest(
                     speakerName = name,
                     age = age,
