@@ -158,6 +158,11 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun unfollow() {
+        shapeList.value.forEach { shape ->
+            if (shape.uuid == _followedUUID) {
+                shape.isFollowed = false
+            }
+        }
         _followedUUID.value = null
     }
 
