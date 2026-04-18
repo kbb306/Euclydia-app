@@ -2,6 +2,7 @@ package com.example.euclydia.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -92,6 +93,14 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                             viewModel.select_ids.clear()
                         }
 
+                    }
+
+                    binding.Export.setOnClickListener {
+                        Toast.makeText(this, "Feature not implemented yet!", Toast.LENGTH_SHORT).show()
+                    }
+
+                    binding.Import.setOnClickListener {
+                        Toast.makeText(this,"Feature not implemented yet!", Toast.LENGTH_SHORT).show()
                     }
 
                     binding.delete.setOnClickListener {
