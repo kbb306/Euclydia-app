@@ -95,13 +95,7 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
 
                     }
 
-                    binding.Export.setOnClickListener {
-                        Toast.makeText(this, "Feature not implemented yet!", Toast.LENGTH_SHORT).show()
-                    }
 
-                    binding.Import.setOnClickListener {
-                        Toast.makeText(this,"Feature not implemented yet!", Toast.LENGTH_SHORT).show()
-                    }
 
                     binding.delete.setOnClickListener {
                         val delete = UniversalDialog(

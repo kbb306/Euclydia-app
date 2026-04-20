@@ -71,32 +71,6 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/Import"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/importbutton"
-        style="@style/BlueButton"
-        tools:layout_editor_absoluteX="61dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/center"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/Export"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/exportbutton"
-        style="@style/BlueButton"
-        tools:layout_editor_absoluteX="266dp"
-        tools:layout_editor_absoluteY="624dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/center"/>
-
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
         android:id="@+id/center"
         android:orientation="vertical"
