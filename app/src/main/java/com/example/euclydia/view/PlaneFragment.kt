@@ -1,5 +1,6 @@
 package com.example.euclydia.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -7,6 +8,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -33,6 +35,12 @@ class Plane @JvmOverloads constructor(
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
     private var shapes : List<Shape> = emptyList()
 
+    private lateinit var listener : Tracker
+
+    fun setListener(listener : Tracker) {
+        this.listener = listener
+    }
+
     fun submit(newShapes: List<Shape>) {
         shapes = newShapes
         invalidate()
@@ -46,10 +54,30 @@ class Plane @JvmOverloads constructor(
             shape.draw(canvas,paint,0.0,0.0)
         }
     }
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.action != MotionEvent.ACTION_DOWN) return true
+
+        val tapX = event.x.toDouble()
+        val tapY = event.y.toDouble()
+
+        for (shape in shapes.reversed()) {
+            val dx = tapX - shape.x
+            val dy = tapY - shape.y
+            val dist2 = dx * dx + dy * dy
+
+            if (dist2 <= shape.radius * shape.radius) {
+                listener.onSelect(shape.uuid)
+                return true
+            }
+        }
+
+        return true
+    }
 }
 
 
-class PlaneFragment : androidx.fragment.app.Fragment() {
+class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private lateinit var binding: PlaneFragmentBinding
 
@@ -71,7 +99,7 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.planeView.setListener(this)
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.tick.collect {
@@ -86,6 +114,17 @@ class PlaneFragment : androidx.fragment.app.Fragment() {
         viewModel.startLoop()
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.stopLoop()
+    }
 
+    override fun onSelect(uuid: UUID) {
+        listener.onSelect(uuid)
+    }
+
+    fun setListener(listener : Plane.Tracker) {
+        this.listener = listener
+    }
 }
 

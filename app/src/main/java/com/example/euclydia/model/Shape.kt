@@ -1,6 +1,7 @@
 package com.example.euclydia.model
 import android.graphics.Paint
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Path
 import android.graphics.RectF
 import com.example.euclydia.database.DNA
@@ -46,6 +47,9 @@ enum class SpecialVoice {
 
 
     ) : Turtle(name, x, y, heading, speed, color) {
+
+        var nextSpeechTick: Long = 0
+
 
         companion object {
             const val CM = 50.0
@@ -140,10 +144,13 @@ enum class SpecialVoice {
             if (isFollowed) {
                 val box = RectF(
                     (x - cameraX - radius - 12.0).toFloat(),
-                    (y - cameraY - radius - 12.0).toFloat(),
+                    (y + cameraY - radius - 12.0).toFloat(),
                     (x + cameraX + radius + 12.0).toFloat(),
-                    (y + cameraY + radius + 12.0).toFloat()
+                    (y - cameraY + radius + 12.0).toFloat()
                 )
+                paint.style = Paint.Style.STROKE
+                paint.color = Color.GRAY
+                paint.strokeWidth = 4f
                 canvas.drawRect(box, paint)
             }
         }
@@ -155,8 +162,9 @@ enum class SpecialVoice {
             val canon: SpecialVoice?
         )
 
+
         fun say(): SpeechRequest? {
-            if ((0..1000).random() < 1) {
+            if ((0..1000).random() < 10) {
                 val pass = SpeechRequest(
                     speakerName = name,
                     age = age,

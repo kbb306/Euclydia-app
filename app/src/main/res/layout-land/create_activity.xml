@@ -68,7 +68,7 @@
         android:layout_height="46dp"
         android:ems="2"
         android:inputType="number"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="@id/nameField"
         app:layout_constraintStart_toStartOf="@id/nameField"
         app:layout_constraintTop_toBottomOf="@id/nameField" />
@@ -85,11 +85,11 @@
 
     <EditText
         android:id="@+id/lengthfield"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:ems="2"
         android:layout_width="103dp"
         android:layout_height="46dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintStart_toStartOf="@id/color"
         app:layout_constraintEnd_toEndOf="@id/color"
         app:layout_constraintTop_toBottomOf="@id/color"/>
@@ -112,7 +112,7 @@
         app:layout_constraintStart_toStartOf="@id/gendergroup"
         app:layout_constraintEnd_toEndOf="@id/gendergroup"
         app:layout_constraintTop_toBottomOf="@id/gendergroup"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/create"
         >
 
         <RadioButton

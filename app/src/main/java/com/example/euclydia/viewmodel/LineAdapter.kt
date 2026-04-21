@@ -13,9 +13,15 @@ class LineAdapter() : RecyclerView.Adapter<LineViewHolder>(){
 
     private var lines : List<LineLogEntry> = emptyList()
 
-    fun submitLines(newLines : List<LineLogEntry>) {
+    fun submitLines(newLines: List<LineLogEntry>) {
+        val oldSize = lines.size
         lines = newLines
-        notifyDataSetChanged()
+
+        if (newLines.size > oldSize && newLines.take(oldSize) == lines.take(oldSize)) {
+            notifyItemRangeInserted(oldSize, newLines.size - oldSize)
+        } else {
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(

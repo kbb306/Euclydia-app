@@ -78,7 +78,7 @@
 
     <EditText
         android:id="@+id/lengthfield"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:ems="2"
         android:layout_width="103dp"
         android:layout_height="46dp"

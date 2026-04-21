@@ -12,6 +12,7 @@ import androidx.fragment.app.commit
 import com.example.euclydia.R
 import com.example.euclydia.databinding.ActivityMainBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
+import com.example.euclydia.viewmodel.SoundOption
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Plane.Tracker {
@@ -33,15 +34,17 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
 
         if (savedInstanceState == null) {
+            val frag = PlaneFragment()
+            frag.setListener(this)
             viewModel.load()
             supportFragmentManager.beginTransaction()
-                .replace(binding.plane.id, PlaneFragment())
+                .replace(binding.plane.id, frag)
                 .commit()
 
             val id = intent.getSerializableExtra("ID", UUID::class.java)
             if (id != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(binding.bottom.id, FollowFragment(id))
+                    .replace(binding.bottom.id, FollowFragment.newInstance(id))
                     .addToBackStack(null)
                     .commit()
             } else {
@@ -50,10 +53,19 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
                     .commit()
             }
         }
+        
+        binding.mute.setOnCheckedChangeListener { _, ismuted ->
+            when(ismuted) {
+                true -> SoundOption.mute()
+                else -> SoundOption.unmute()
+            }
+        }
     }
 
     override fun onSelect(uuid: UUID) {
-
+        fragMan.beginTransaction().replace(binding.bottom.id,
+            FollowFragment.newInstance(uuid))
+            .commit()
     }
 
     companion object {

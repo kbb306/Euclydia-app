@@ -32,6 +32,7 @@ import kotlin.random.Random
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.update
 
 
 data class LineLogEntry(
@@ -131,20 +132,23 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun collisionCheck(shape: Shape, current : List<Shape>) {
-        val mightCollide = current.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius}
+        val mightCollide =
+            current.filter { it.uuid != shape.uuid && it.distance(shape) < shape.radius + it.radius }
         if (!mightCollide.isEmpty()) {
-            shape.back(.45)
-            var safe = false
-            var newHeading = 0.00
-            while (!safe) {
-                for (each in mightCollide) {
-                    newHeading = shape.avoid(each)
-                    safe = (mightCollide.none { it.heading != newHeading })
-                }
+            var dx = 0.00
+            var dy = 0.00
+
+            for (other in mightCollide) {
+                dx += shape.x - other.x
+                dy += shape.y - other.y
             }
-            shape.turnTo(newHeading)
-            shape.forward(5.00)
-    }}
+            if (dx != 0.00 || dy != 0.00) {
+                shape.back(5.0)
+                shape.turnTo(Math.toDegrees(kotlin.math.atan2(dy,dx)))
+                shape.forward(5.0)
+            }
+        }
+    }
 
     fun follow(uuid : UUID) {
         _followedUUID.value = uuid
@@ -154,6 +158,11 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun unfollow() {
+        shapeList.value.forEach { shape ->
+            if (shape.uuid == _followedUUID.value) {
+                shape.isFollowed = false
+            }
+        }
         _followedUUID.value = null
     }
 
@@ -207,7 +216,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         loopJob = viewModelScope.launch {
             while (isActive) {
                 step()
-                delay(16L)
+                delay(33L)
             }
         }
     }
@@ -221,14 +230,20 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
         ShapeStore.mutate { current ->
             for (shape in current) {
                 shape.update(worldHeight, worldWidth)
-                val request = shape.say()
-                if (request != null) {
-                    _lineLog.value += LineLogEntry(
-                        uuid = shape.uuid,
-                        request.speakerName,
-                        microphone.speak(request),
-                        _tick.value
-                    )
+                if (_tick.value >= shape.nextSpeechTick) {
+                    val request = shape.say()
+                    if (request != null) {
+                        _lineLog.update { old ->
+                            (old + LineLogEntry(
+                                uuid = shape.uuid,
+                                request.speakerName,
+                                microphone.speak(request),
+                                _tick.value
+                            )
+                                    ).takeLast(200)
+                        }
+                    }
+                    shape.nextSpeechTick = _tick.value + 180L
                 }
                 collisionCheck(shape, current)
             }

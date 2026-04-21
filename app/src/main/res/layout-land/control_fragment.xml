@@ -10,25 +10,30 @@
         style="@style/YellowButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="60dp"
         android:text="@string/create"
-        app:layout_constraintEnd_toStartOf="@+id/list"
-        app:layout_constraintHorizontal_bias="0.57"
+        app:layout_constraintEnd_toStartOf="@+id/center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="176dp"
         android:text="@string/list"
         style="@style/BlueButton"
+        app:layout_constraintStart_toEndOf="@id/center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:strokeColor="@color/blue"
         app:strokeWidth="3dp" />
+
+    <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
+        android:id="@+id/center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".5"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

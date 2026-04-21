@@ -49,7 +49,7 @@ class ShapeListViewHolder(val binding: ListElementBinding) : RecyclerView.ViewHo
             shapeName.text = shape.name
             checkBox.setOnCheckedChangeListener(null)
             checkBox.isChecked = isChecked
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
+            checkBox.setOnCheckedChangeListener { button, isChecked ->
                 onCheckedChange(shape,isChecked)
             }
             followButton.setOnClickListener {
