@@ -16,6 +16,7 @@ import com.example.euclydia.model.SpecialVoice
 import com.example.euclydia.model.Speech
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -213,7 +214,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     fun startLoop() {
         if (loopJob?.isActive == true) return
         if (loopJob != null) return
-        loopJob = viewModelScope.launch {
+        loopJob = viewModelScope.launch(Dispatchers.Default) {
             while (isActive) {
                 step()
                 delay(33L)
