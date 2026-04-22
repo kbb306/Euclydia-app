@@ -115,12 +115,12 @@
         app:layout_constraintBottom_toTopOf="@id/create"
         >
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/adult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/adultlabel" />
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/child"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,19 +139,19 @@
         app:layout_constraintTop_toBottomOf="@id/title3">
 
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/malelabel" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/nb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nblabel" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
