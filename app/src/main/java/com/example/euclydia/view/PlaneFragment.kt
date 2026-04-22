@@ -78,9 +78,10 @@ class Plane @JvmOverloads constructor(
 }
 
 
-class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
+class PlaneFragment : Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
-    private lateinit var binding: PlaneFragmentBinding
+    private var _binding: PlaneFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private var listener : Plane.Tracker? = null
 
@@ -99,7 +100,7 @@ class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = PlaneFragmentBinding.inflate(inflater, container, false)
+        _binding = PlaneFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -119,6 +120,12 @@ class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
         super.onStart()
         viewModel.startLoop()
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 
     override fun onStop() {
         super.onStop()

@@ -12,7 +12,8 @@ import com.example.euclydia.viewmodel.EuclydiaViewModel
 
 class ControlFragment() : Fragment() {
 
-    private lateinit var binding : ControlFragmentBinding
+    private var _binding : ControlFragmentBinding? = null
+    private val binding get() =_binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +23,8 @@ class ControlFragment() : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = ControlFragmentBinding.inflate(layoutInflater,container,false)
+    ): View {
+        _binding = ControlFragmentBinding.inflate(layoutInflater,container,false)
 
         return binding.root
     }
@@ -39,4 +40,10 @@ class ControlFragment() : Fragment() {
             startActivity(Intent(requireContext(), ListActivity::class.java))
         }
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
 }
