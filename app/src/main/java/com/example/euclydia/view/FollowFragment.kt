@@ -1,6 +1,5 @@
 package com.example.euclydia.view
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,30 +32,31 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
         }
     }
 
-    private lateinit var binding: FollowFragmentBinding
+    private var _binding: FollowFragmentBinding? = null
+    private val binding get() = _binding!!
+
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private val adapter = LineAdapter()
 
-    private val followedUuid: UUID? by lazy {
-        arguments?.getSerializable(ARG_UUID, UUID::class.java)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        followedUuid?.let(viewModel::follow)
-    }
+    private val followedUuid: UUID?
+        get() = arguments?.getSerializable(ARG_UUID, UUID::class.java)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FollowFragmentBinding.inflate(inflater, container, false)
+        _binding = FollowFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val id = followedUuid
+        if (id != null && viewModel.followedUUID.value != id) {
+            viewModel.follow(id)
+        }
 
         binding.lineview.layoutManager = LinearLayoutManager(requireContext())
         binding.lineview.adapter = adapter
@@ -74,7 +74,9 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
 
         binding.closeButton.setOnClickListener {
             viewModel.unfollow()
-            parentFragmentManager.beginTransaction().replace(R.id.bottom, ControlFragment()).commit()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.bottom, ControlFragment())
+                .commit()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -84,7 +86,6 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
                     binding.xValue.text = viewModel.followedX?.let {
                         String.format(Locale.US, "%.2f", it)
                     } ?: ""
-
                     binding.yValue.text = viewModel.followedY?.let {
                         String.format(Locale.US, "%.2f", it)
                     } ?: ""
@@ -96,18 +97,28 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.followedLineLog.collect { lines ->
                     adapter.submitLines(lines)
+                    if (lines.isNotEmpty()) {
+                        binding.lineview.scrollToPosition(lines.lastIndex)
+                    }
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        binding.lineview.adapter = null
+        _binding = null
+        super.onDestroyView()
     }
 
     override fun onDialogPositiveClick(dialog: DialogFragment) {
         val id = followedUuid ?: return
         viewModel.unfollow()
         viewModel.delete(listOf(id))
-        parentFragmentManager.beginTransaction().replace(R.id.bottom, ControlFragment()).commit()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.bottom, ControlFragment())
+            .commit()
     }
 
-    override fun onDialogNeutralClick(dialog: DialogFragment) {
-    }
+    override fun onDialogNeutralClick(dialog: DialogFragment) {}
 }
