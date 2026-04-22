@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -81,11 +82,16 @@ class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private lateinit var binding: PlaneFragmentBinding
 
-    private lateinit var listener : Plane.Tracker
+    private var listener : Plane.Tracker? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as? Plane.Tracker ?: throw IllegalStateException("Host activity must implement plane tracker")
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
     }
 
     override fun onCreateView(
@@ -120,7 +126,7 @@ class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
     }
 
     override fun onSelect(uuid: UUID) {
-        listener.onSelect(uuid)
+        listener?.onSelect(uuid)
     }
 
     fun setListener(listener : Plane.Tracker) {

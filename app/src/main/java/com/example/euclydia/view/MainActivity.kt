@@ -34,11 +34,9 @@ class MainActivity : AppCompatActivity(), Plane.Tracker {
         }
 
         if (savedInstanceState == null) {
-            val frag = PlaneFragment()
-            frag.setListener(this)
             viewModel.load()
             supportFragmentManager.beginTransaction()
-                .replace(binding.plane.id, frag)
+                .replace(binding.plane.id, PlaneFragment())
                 .commit()
 
             val id = intent.getSerializableExtra("ID", UUID::class.java)
