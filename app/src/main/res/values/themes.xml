@@ -1,13 +1,24 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Euclydia" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="checkboxStyle">@style/CheckBoxStyle</item>
+        <item name="radioButtonStyle">@style/RadioButtonStyle</item>
     </style>
     
     <style name="Theme.Euclydia" parent="Base.Theme.Euclydia" />
-    
-    <style name="GlobalTextViewStyle" parent="Widget.AppCompat.TextView">
+
+    <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/amaticsc</item>
+    </style>
+
+    <style name="CheckBoxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:fontFamily">@font/amaticsc</item>
+        <item name="fontFamily">@font/amaticsc</item>
+    </style>
+
+    <style name="RadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:fontFamily">@font/amaticsc</item>
         <item name="fontFamily">@font/amaticsc</item>
     </style>
 
