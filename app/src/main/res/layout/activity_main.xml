@@ -20,14 +20,16 @@
     <androidx.fragment.app.FragmentContainerView
         android:id = "@+id/plane"
         android:layout_width="match_parent"
-        android:layout_height="520dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom"
         app:layout_constraintTop_toBottomOf="@id/title"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id = "@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        app:layout_constraintTop_toBottomOf="@id/plane"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
     <CheckBox
         android:id="@+id/mute"
