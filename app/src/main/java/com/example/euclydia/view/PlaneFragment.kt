@@ -16,7 +16,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.databinding.PlaneFragmentBinding
 import com.example.euclydia.model.Shape
 import com.example.euclydia.viewmodel.EuclydiaViewModel

@@ -7,7 +7,6 @@ import com.example.euclydia.model.Age
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.SpecialVoice
 import kotlinx.serialization.Contextual
-import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

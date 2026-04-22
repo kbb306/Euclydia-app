@@ -1,9 +1,7 @@
 package com.example.euclydia.view
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View

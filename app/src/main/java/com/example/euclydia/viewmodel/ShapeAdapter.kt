@@ -1,14 +1,11 @@
 package com.example.euclydia.viewmodel
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.euclydia.databinding.ListElementBinding
 import com.example.euclydia.model.Shape
 import com.example.euclydia.view.ShapeIcon
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import java.util.UUID
 
 class ShapeAdapter(private var shapelist : List<Shape>,
