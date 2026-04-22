@@ -2,13 +2,17 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Euclydia" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:textViewStyle">@style/TextViewStyle</item>
+
+        <item name="android:checkboxStyle">@style/CheckBoxStyle</item>
         <item name="checkboxStyle">@style/CheckBoxStyle</item>
+
+        <item name="android:radioButtonStyle">@style/RadioButtonStyle</item>
         <item name="radioButtonStyle">@style/RadioButtonStyle</item>
     </style>
-    
     <style name="Theme.Euclydia" parent="Base.Theme.Euclydia" />
 
     <style name="TextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/amaticsc</item>
         <item name="fontFamily">@font/amaticsc</item>
     </style>
 
