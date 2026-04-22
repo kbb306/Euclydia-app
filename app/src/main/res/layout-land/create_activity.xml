@@ -117,11 +117,13 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/adult"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/adultlabel" />
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/child"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/childlabel"/>
@@ -141,18 +143,21 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/male"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/malelabel" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/nb"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nblabel" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/female"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/femalelabel" />
