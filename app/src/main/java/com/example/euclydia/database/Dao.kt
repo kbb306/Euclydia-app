@@ -5,11 +5,8 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
-import com.example.euclydia.model.Shape
 import kotlinx.coroutines.flow.Flow
-import kotlinx.serialization.InternalSerializationApi
 import java.util.UUID
-import kotlin.uuid.Uuid
 
 @Dao
 interface ShapeDao {

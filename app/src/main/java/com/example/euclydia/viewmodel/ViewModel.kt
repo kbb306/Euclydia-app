@@ -46,12 +46,6 @@ data class LineLogEntry(
 class EuclydiaViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = Repository.get()
     val shapeList = ShapeStore.shapes
-    val savedShapes: StateFlow<List<Shape>> =
-        repo.shapeList.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
     private val _tick = MutableStateFlow(0L)
     val tick : StateFlow<Long> = _tick.asStateFlow()
 
@@ -126,10 +120,6 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     fun delete(UUIDs : List<UUID>) {
         ShapeStore.removeShapes(UUIDs)
         syncInator()
-    }
-
-    fun follow(shape: Shape) {
-        follow(shape.uuid)
     }
 
     fun collisionCheck(shape: Shape, current : List<Shape>) {
@@ -258,5 +248,4 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             ShapeStore.setShapes(first)
         }
     }
-
 }

@@ -22,9 +22,6 @@ object ShapeStore {
         _shapes.update { it + shapes }
     }
 
-    fun removeShape(uuid: UUID) {
-        _shapes.update { list -> list.filterNot { it.uuid == uuid } }
-    }
 
     fun removeShapes(shapes : List<UUID>) {
         _shapes.update { list -> list.filterNot { it.uuid in shapes } }
@@ -37,7 +34,4 @@ object ShapeStore {
         _shapes.value = current.toList()
     }
 
-    fun clear() {
-        _shapes.value = emptyList()
-    }
 }

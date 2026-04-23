@@ -120,13 +120,15 @@
         app:layout_constraintTop_toBottomOf="@id/sideField"
         >
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/adult"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/adultlabel" />
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/child"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/childlabel"/>
@@ -144,20 +146,23 @@
         app:layout_constraintTop_toBottomOf="@id/nameField">
 
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/male"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/malelabel" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/nb"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nblabel" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/female"
+            app:useMaterialThemeColors="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/femalelabel" />

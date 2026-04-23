@@ -4,10 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.euclydia.databinding.LineEntryBinding
-import com.example.euclydia.model.Shape
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.map
+
 
 class LineAdapter() : RecyclerView.Adapter<LineViewHolder>(){
 

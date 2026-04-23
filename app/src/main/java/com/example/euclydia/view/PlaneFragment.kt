@@ -16,7 +16,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.euclydia.databinding.ControlFragmentBinding
 import com.example.euclydia.databinding.PlaneFragmentBinding
 import com.example.euclydia.model.Shape
 import com.example.euclydia.viewmodel.EuclydiaViewModel
@@ -80,7 +79,8 @@ class Plane @JvmOverloads constructor(
 
 class PlaneFragment : Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
-    private lateinit var binding: PlaneFragmentBinding
+    private var _binding: PlaneFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private var listener : Plane.Tracker? = null
 
@@ -98,8 +98,8 @@ class PlaneFragment : Fragment(), Plane.Tracker {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = PlaneFragmentBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = PlaneFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -120,6 +120,12 @@ class PlaneFragment : Fragment(), Plane.Tracker {
         viewModel.startLoop()
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
+
     override fun onStop() {
         super.onStop()
         viewModel.stopLoop()
@@ -129,8 +135,6 @@ class PlaneFragment : Fragment(), Plane.Tracker {
         listener?.onSelect(uuid)
     }
 
-    fun setListener(listener : Plane.Tracker) {
-        this.listener = listener
-    }
+
 }
 

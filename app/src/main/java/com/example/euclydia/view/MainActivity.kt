@@ -8,8 +8,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.commit
-import com.example.euclydia.R
 import com.example.euclydia.databinding.ActivityMainBinding
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import com.example.euclydia.viewmodel.SoundOption

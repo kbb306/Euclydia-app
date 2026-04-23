@@ -1,8 +1,6 @@
 package com.example.euclydia.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import com.example.euclydia.viewmodel.EuclydiaViewModel
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.euclydia.databinding.ListActivityBinding
 import com.example.euclydia.viewmodel.ShapeAdapter
 import kotlinx.coroutines.launch
-import java.util.UUID
 import kotlin.getValue
 
 
