@@ -78,7 +78,7 @@ class Plane @JvmOverloads constructor(
 }
 
 
-class PlaneFragment : androidx.fragment.app.Fragment(), Plane.Tracker {
+class PlaneFragment : Fragment(), Plane.Tracker {
     private val viewModel: EuclydiaViewModel by activityViewModels()
     private lateinit var binding: PlaneFragmentBinding
 
