@@ -98,7 +98,7 @@ class PlaneFragment : Fragment(), Plane.Tracker {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = PlaneFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -135,8 +135,6 @@ class PlaneFragment : Fragment(), Plane.Tracker {
         listener?.onSelect(uuid)
     }
 
-    fun setListener(listener : Plane.Tracker) {
-        this.listener = listener
-    }
+
 }
 
