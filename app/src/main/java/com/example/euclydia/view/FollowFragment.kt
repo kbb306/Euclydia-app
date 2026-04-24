@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -103,6 +104,17 @@ class FollowFragment : Fragment(), UniversalDialog.universalListener {
                 }
             }
         }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.unfollow()
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.bottom, ControlFragment())
+                        .commit()
+                }
+            }
+        )
     }
 
     override fun onDestroyView() {
