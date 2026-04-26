@@ -3,6 +3,7 @@ package com.example.euclydia.viewmodel
 import android.app.Application
 import android.content.Context
 import android.graphics.Color
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.euclydia.model.Age
@@ -96,25 +97,71 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     }
 
 
-    fun legacyImport(context : Context, path: String) { //For loading Euclydia3.0 save files if I can figure out how to open them
+    fun importJson(context: Context, uri: Uri) {
+        val text = context.contentResolver.openInputStream(uri)
+            ?.bufferedReader()
+            ?.use { it.readText() }
+            ?: return
+
+        ShapeStore.addShapes(ShapeJson.decodeShapes(text))
+        syncInator()
+    }
+
+    fun legacyImport(context: Context, uri: Uri) {
         val loaded = mutableListOf<Shape>()
-        csvReader().open(context.openFileInput(path)) {
-            readAllAsSequence().forEach { row ->
-                loaded.add(Shape(row as List<Any>))
+
+        context.contentResolver.openInputStream(uri)?.use { input ->
+            csvReader().open(input) {
+                readAllAsSequence().forEach { row ->
+                    val voice = Speech.reverseBS(row[7])
+
+                    loaded.add(
+                        Shape(
+                            UUID.randomUUID(),
+                            row[0],
+                            voice.age,
+                            voice.gender,
+                            legacyColor(row[5]),
+                            row[1].toDouble().toInt(),
+                            row[2].toDouble() * Shape.CM,
+                            row[3].toDouble(),
+                            row[4].toDouble(),
+                            row[6].toDouble(),
+                            5.0,
+                            voice.canon
+                        )
+                    )
+                }
             }
         }
+
         ShapeStore.addShapes(loaded)
+        syncInator()
     }
 
-    fun import(context : Context,path: String) {
-        val cryofreeze = context.openFileInput(path)
-            .bufferedReader().use { it.readText() }
-        ShapeStore.addShapes(ShapeJson.decodeShapes(cryofreeze))
+    fun exportJson(context: Context, uri: Uri) {
+        val text = ShapeJson.encodeShapes(shapeList.value)
+
+        context.contentResolver.openOutputStream(uri)?.use { output ->
+            output.write(text.toByteArray())
+        }
     }
 
-    fun export(context: Context, path: String) {
-        val cryofreeze = ShapeJson.encodeShapes(shapeList.value)
-        context.openFileOutput(path, Context.MODE_PRIVATE).use { it.write(cryofreeze.toByteArray()) }
+    private fun legacyColor(name: String): Int {
+        return when (name.lowercase()) {
+            "red" -> Color.RED
+            "blue" -> Color.BLUE
+            "green" -> Color.GREEN
+            "yellow" -> Color.YELLOW
+            "cyan" -> Color.CYAN
+            "magenta", "purple" -> Color.MAGENTA
+            "pink" -> 0xFFFFC0CB.toInt()
+            "brown" -> 0xFFA52A2A.toInt()
+            "gray", "grey" -> Color.GRAY
+            "white" -> Color.WHITE
+            "black" -> Color.BLACK
+            else -> Color.GRAY
+        }
     }
 
     fun delete(UUIDs : List<UUID>) {

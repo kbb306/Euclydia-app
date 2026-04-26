@@ -15,11 +15,61 @@ import com.example.euclydia.databinding.ListActivityBinding
 import com.example.euclydia.viewmodel.ShapeAdapter
 import kotlinx.coroutines.launch
 import kotlin.getValue
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 
 
 class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
     private lateinit var binding: ListActivityBinding
     private val viewModel: EuclydiaViewModel by viewModels()
+
+    private val openImportFile =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri: Uri? ->
+            uri ?: return@registerForActivityResult
+
+            val name = contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                val index = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                if (cursor.moveToFirst() && index >= 0) cursor.getString(index) else null
+            } ?: uri.toString()
+
+            try {
+                when {
+                    name.endsWith(".json", ignoreCase = true) -> {
+                        viewModel.importJson(this, uri)
+                        Toast.makeText(this, "Imported JSON shapes", Toast.LENGTH_SHORT).show()
+                    }
+
+                    name.endsWith(".csv", ignoreCase = true) -> {
+                        viewModel.legacyImport(this, uri)
+                        Toast.makeText(this, "Imported legacy shapes", Toast.LENGTH_SHORT).show()
+                    }
+
+                    name.endsWith(".xml", ignoreCase = true) -> {
+                        Toast.makeText(this, "XML import is not implemented yet", Toast.LENGTH_LONG).show()
+                    }
+
+                    else -> {
+                        Toast.makeText(this, "Choose a .json or .csv file", Toast.LENGTH_LONG).show()
+                    }
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Import failed: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private val createExportFile =
+        registerForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri: Uri? ->
+            uri ?: return@registerForActivityResult
+
+            try {
+                viewModel.exportJson(this, uri)
+                Toast.makeText(this, "Export complete", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Export failed: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ListActivityBinding.inflate(layoutInflater)
@@ -105,9 +155,23 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                         delete.show(supportFragmentManager,"LIST_DELETE")
                     }
 
-                    binding.importbutton.setOnClickListener {  }
-                    binding.exportbutton.setOnClickListener {  }
-                }
+                    binding.importbutton.setOnClickListener {
+                        openImportFile.launch(
+                            arrayOf(
+                                "application/json",
+                                "text/csv",
+                                "text/comma-separated-values",
+                                "text/xml",
+                                "application/xml",
+                                "*/*"
+                            )
+                        )
+                    }
+
+                    binding.exportbutton.setOnClickListener {
+                        createExportFile.launch("euclydia-shapes.json")
+                    }
+                            }
 
 
 
