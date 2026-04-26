@@ -153,7 +153,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             "blue" -> Color.BLUE
             "green" -> Color.GREEN
             "yellow" -> Color.YELLOW
-            "cyan" -> Color.CYAN
+            "cyan", "skyblue" -> Color.CYAN
             "magenta", "purple" -> Color.MAGENTA
             "pink" -> 0xFFFFC0CB.toInt()
             "brown" -> 0xFFA52A2A.toInt()
