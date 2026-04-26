@@ -80,5 +80,23 @@
         android:layout_height="wrap_content"
         app:layout_constraintGuide_percent=".50"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@id/importbutton"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/importbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@id/exportbutton"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exportbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/importbutton" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

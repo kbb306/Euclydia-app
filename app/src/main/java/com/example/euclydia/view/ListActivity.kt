@@ -104,7 +104,11 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                         )
                         delete.show(supportFragmentManager,"LIST_DELETE")
                     }
+
+                    binding.importbutton.setOnClickListener {  }
+                    binding.exportbutton.setOnClickListener {  }
                 }
+
 
 
 

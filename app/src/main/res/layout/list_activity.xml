@@ -67,9 +67,9 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/list_view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/list_view" />
 
 
     <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
@@ -77,6 +77,28 @@
         android:orientation="vertical"
         android:layout_height="wrap_content"
         app:layout_constraintGuide_percent=".50"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/importbutton"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/importbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/center"
+        app:layout_constraintTop_toBottomOf="@+id/borderBar" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/exportbutton"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/exportbutton"
+        app:layout_constraintEnd_toStartOf="@+id/center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/borderBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
