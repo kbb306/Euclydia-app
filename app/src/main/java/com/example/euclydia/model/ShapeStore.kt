@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import java.util.UUID
+import kotlin.collections.plus
+import kotlin.collections.takeLast
 
 object ShapeStore {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
@@ -22,8 +24,10 @@ object ShapeStore {
         _shapes.update { it + shape }
     }
 
-    fun addLine(line: LineLogEntry) {
-
+    fun addLine(shape: Shape, line: LineLogEntry) {
+            _lines.update { old ->
+                (old + line).takeLast(200)
+        }
     }
 
     fun addShapes(shapes: List<Shape>) {

@@ -271,15 +271,11 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
                 if (_tick.value >= shape.nextSpeechTick) {
                     val request = shape.say()
                     if (request != null) {
-                        _lineLog.update { old ->
-                            (old + LineLogEntry(
-                                uuid = shape.uuid,
-                                request.speakerName,
-                                microphone.speak(request),
-                                _tick.value
-                            )
-                                    ).takeLast(200)
-                        }
+                        ShapeStore.addLine(shape, LineLogEntry(
+                            uuid = shape.uuid,
+                            request.speakerName,
+                            microphone.speak(request),
+                            _tick.value))
                     }
                     shape.nextSpeechTick = _tick.value + 180L
                 }
