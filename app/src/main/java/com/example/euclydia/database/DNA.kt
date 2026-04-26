@@ -6,14 +6,14 @@ import androidx.room.TypeConverter
 import com.example.euclydia.model.Age
 import com.example.euclydia.model.Gender
 import com.example.euclydia.model.SpecialVoice
-import kotlinx.serialization.Contextual
+import com.example.euclydia.model.UUIDSerializer
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
 @Serializable
 @Entity(tableName = "Shapes")
 data class DNA (
-    @Contextual
+    @Serializable(with = UUIDSerializer::class)
     @PrimaryKey var uuid: UUID,
     var name: String,
     var age: Age,
