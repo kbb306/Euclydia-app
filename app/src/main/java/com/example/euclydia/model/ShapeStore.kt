@@ -22,6 +22,10 @@ object ShapeStore {
         _shapes.update { it + shape }
     }
 
+    fun addLine(line: LineLogEntry) {
+
+    }
+
     fun addShapes(shapes: List<Shape>) {
         _shapes.update { it + shapes }
     }
