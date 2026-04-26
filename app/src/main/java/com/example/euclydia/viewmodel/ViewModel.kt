@@ -226,7 +226,6 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
 
     // Non-canvas updaters
 
-    private val _lineLog  = MutableStateFlow<List<LineLogEntry>>(emptyList())
     val lineLog = ShapeStore.lines
     @OptIn(InternalSerializationApi::class)
 
