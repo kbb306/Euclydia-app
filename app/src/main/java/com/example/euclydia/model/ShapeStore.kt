@@ -24,7 +24,7 @@ object ShapeStore {
         _shapes.update { it + shape }
     }
 
-    fun addLine(shape: Shape, line: LineLogEntry) {
+    fun addLine(line: LineLogEntry) {
             _lines.update { old ->
                 (old + line).takeLast(200)
         }

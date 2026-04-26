@@ -271,7 +271,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
                 if (_tick.value >= shape.nextSpeechTick) {
                     val request = shape.say()
                     if (request != null) {
-                        ShapeStore.addLine(shape, LineLogEntry(
+                        ShapeStore.addLine(LineLogEntry(
                             uuid = shape.uuid,
                             request.speakerName,
                             microphone.speak(request),
