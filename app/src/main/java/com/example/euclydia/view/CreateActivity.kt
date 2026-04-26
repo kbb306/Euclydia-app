@@ -32,13 +32,15 @@ class CreateActivity : AppCompatActivity() {
 
         val colorOptions = listOf(
             ColorOption("Red", Color.RED),
-            ColorOption("Blue", android.graphics.Color.BLUE),
-            ColorOption("Green", android.graphics.Color.GREEN),
-            ColorOption("Yellow", android.graphics.Color.YELLOW),
-            ColorOption("Cyan", android.graphics.Color.CYAN),
-            ColorOption("Magenta", android.graphics.Color.MAGENTA),
-            ColorOption("White", android.graphics.Color.WHITE),
-            ColorOption("Black", android.graphics.Color.BLACK)
+            ColorOption("Blue", Color.BLUE),
+            ColorOption("Green", Color.GREEN),
+            ColorOption("Yellow", Color.YELLOW),
+            ColorOption("Cyan", Color.CYAN),
+            ColorOption("Magenta", Color.MAGENTA),
+            ColorOption("Pink",0xFFFFC0CB.toInt()),
+            ColorOption("Brown", 0xFFA52A2A.toInt()),
+            ColorOption("White", Color.WHITE),
+            ColorOption("Black", Color.BLACK),
         )
 
         super.onCreate(savedInstanceState)
