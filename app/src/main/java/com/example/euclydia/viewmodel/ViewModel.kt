@@ -227,12 +227,12 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
     // Non-canvas updaters
 
     private val _lineLog  = MutableStateFlow<List<LineLogEntry>>(emptyList())
-    val lineLog: StateFlow<List<LineLogEntry>> = _lineLog.asStateFlow()
+    val lineLog = ShapeStore.lines
     @OptIn(InternalSerializationApi::class)
 
 
     val followedLineLog: StateFlow<List<LineLogEntry>> =
-        combine(_lineLog, _followedUUID) { log, uuid ->
+        combine(lineLog, _followedUUID) { log, uuid ->
             if (uuid == null) {
                 emptyList()
             } else {

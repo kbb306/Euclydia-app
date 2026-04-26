@@ -1,5 +1,6 @@
 package com.example.euclydia.model
 
+import com.example.euclydia.viewmodel.LineLogEntry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -9,6 +10,9 @@ import java.util.UUID
 object ShapeStore {
     private val _shapes = MutableStateFlow<List<Shape>>(emptyList())
     val shapes: StateFlow<List<Shape>> = _shapes.asStateFlow()
+
+    private val _lines = MutableStateFlow<List<LineLogEntry>>(emptyList())
+    val lines: StateFlow<List<LineLogEntry>> = _lines.asStateFlow()
 
     fun setShapes(shapes: List<Shape>) {
         _shapes.value = shapes
