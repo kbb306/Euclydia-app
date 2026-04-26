@@ -130,16 +130,13 @@ class ListActivity : AppCompatActivity(), UniversalDialog.universalListener {
                     }
 
                     binding.selall.setOnCheckedChangeListener { _, isChecked ->
-                        if (isChecked) {
-                            viewModel.select_ids.clear()
-                            viewModel.select_ids.addAll(shapes.value.map { it.uuid })
-                            adapter = createAdapter()
-                            binding.listView.adapter = adapter
+                        viewModel.select_ids.clear()
 
-                        } else {
-                            viewModel.select_ids.clear()
+                        if (isChecked) {
+                            viewModel.select_ids.addAll(viewModel.shapeList.value.map { it.uuid })
                         }
 
+                        adapter.notifyDataSetChanged()
                     }
 
 
