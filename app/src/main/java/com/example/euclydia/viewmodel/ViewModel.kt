@@ -122,7 +122,7 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
                             voice.age,
                             voice.gender,
                             legacyColor(row[5]),
-                            row[1].toInt(),
+                            row[1].toDouble().toInt(),
                             row[2].toDouble() * Shape.CM,
                             row[3].toDouble(),
                             row[4].toDouble(),
@@ -154,7 +154,10 @@ class EuclydiaViewModel(application: Application) : AndroidViewModel(application
             "green" -> Color.GREEN
             "yellow" -> Color.YELLOW
             "cyan" -> Color.CYAN
-            "magenta" -> Color.MAGENTA
+            "magenta", "purple" -> Color.MAGENTA
+            "pink" -> 0xFFFFC0CB.toInt()
+            "brown" -> 0xFFA52A2A.toInt()
+            "gray", "grey" -> Color.GRAY
             "white" -> Color.WHITE
             "black" -> Color.BLACK
             else -> Color.GRAY
